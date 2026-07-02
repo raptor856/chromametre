@@ -58,7 +58,7 @@
     color:var(--text-dim);
     letter-spacing:0.05em;
   }
-
+ 
   h1{
     font-family:var(--display);
     font-weight:700;
@@ -74,7 +74,7 @@
     margin:0 0 28px;
     max-width:46ch;
   }
-
+ 
   .panel{
     background:var(--panel);
     border:1px solid var(--line);
@@ -89,7 +89,7 @@
     background:linear-gradient(90deg, transparent, var(--accent-dim), transparent);
     opacity:0.6;
   }
-
+ 
   /* Setup screen */
   .field{
     margin-bottom:22px;
@@ -144,7 +144,7 @@
     text-align:center;
     letter-spacing:0.05em;
   }
-
+ 
   .btn-main{
     width:100%;
     padding:16px;
@@ -164,7 +164,7 @@
   .btn-main:active{ transform:scale(0.99); }
   .btn-main:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
   .btn-main:disabled{ opacity:0.4; cursor:not-allowed; }
-
+ 
   .btn-ghost{
     width:100%;
     padding:14px;
@@ -181,7 +181,7 @@
   }
   .btn-ghost:hover{ border-color:var(--text-dim); color:var(--text); }
   .btn-ghost:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-
+ 
   /* Mode toggle + session fields */
   .mode-toggle{ display:flex; gap:10px; }
   .mode-btn{
@@ -201,7 +201,7 @@
   .mode-btn:hover{ border-color:var(--accent); }
   .mode-btn.active{ border-color:var(--accent); color:var(--accent); background:rgba(124,255,178,0.08); }
   .mode-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-
+ 
   .text-input{
     width:100%;
     padding:14px;
@@ -214,7 +214,7 @@
   }
   .text-input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
   .text-input::placeholder{ color:var(--text-dim); }
-
+ 
   .session-actions{ display:flex; flex-direction:column; gap:12px; }
   .join-row{ display:flex; gap:10px; }
   .join-row .code-input{ text-transform:uppercase; letter-spacing:0.15em; text-align:center; }
@@ -227,7 +227,7 @@
     text-transform:uppercase;
     margin:2px 0;
   }
-
+ 
   .session-code{
     font-family:var(--mono);
     font-weight:800;
@@ -236,7 +236,7 @@
     color:var(--accent);
     margin:10px 0;
   }
-
+ 
   .error-msg{
     font-family:var(--mono);
     font-size:12px;
@@ -245,7 +245,58 @@
     text-align:center;
     min-height:16px;
   }
-
+ 
+  /* Presence banner */
+  .presence-note{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--amber);
+    background:rgba(255,180,84,0.08);
+    border:1px solid rgba(255,180,84,0.3);
+    border-radius:8px;
+    padding:9px 12px;
+    margin:-12px 0 22px;
+    text-align:center;
+    line-height:1.5;
+  }
+ 
+  /* Code / link sharing */
+  .code-row{ display:flex; align-items:center; justify-content:center; gap:10px; }
+  .icon-btn{
+    width:38px; height:38px;
+    border-radius:8px;
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    color:var(--text);
+    font-size:16px;
+    cursor:pointer;
+    transition:border-color .15s, color .15s;
+    flex-shrink:0;
+  }
+  .icon-btn:hover{ border-color:var(--accent); }
+  .icon-btn.copied{ border-color:var(--accent); color:var(--accent); }
+  .share-link-row{ display:flex; gap:8px; margin-top:14px; }
+  .share-link-row .text-input{ font-size:11px; }
+ 
+  /* Player list */
+  .player-list{ display:flex; flex-direction:column; gap:8px; margin:18px 0; }
+  .player-row{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px;
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .player-row .dot{ font-size:9px; }
+  .host-tag{
+    font-size:9px; color:var(--accent);
+    border:1px solid var(--accent-dim);
+    border-radius:4px; padding:1px 5px; margin-left:6px;
+    letter-spacing:.05em; text-transform:uppercase;
+  }
+ 
   /* Aperture / swatch */
   .stage{
     display:flex; flex-direction:column; align-items:center;
@@ -278,7 +329,7 @@
     height:16px;
   }
   .status-line.active{ color:var(--accent); }
-
+ 
   /* Sliders */
   .sliders{ margin-top:8px; }
   .slider-row{ margin-bottom:24px; }
@@ -330,7 +381,7 @@
     cursor:pointer;
   }
   input[type=range]:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
-
+ 
   /* Result */
   .score-block{
     text-align:center;
@@ -399,8 +450,8 @@
     font-size:18px;
     font-weight:700;
   }
-
-  /* Summary */
+ 
+  /* Summary / round & leaderboard lists */
   .round-list{
     display:flex; flex-direction:column; gap:8px;
     margin:20px 0 24px;
@@ -414,13 +465,15 @@
     font-family:var(--mono);
     font-size:13px;
   }
+  .round-item.leaderboard-winner{ border-color:var(--accent); }
   .round-item .chip{
     width:22px; height:22px;
     border-radius:5px;
     border:1px solid var(--line);
     flex-shrink:0;
   }
-  .round-item .idx{ color:var(--text-dim); width:22px; }
+  .round-item .idx{ color:var(--text-dim); width:22px; flex-shrink:0; }
+  .round-item .pname{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
   .round-item .bar-track{
     flex:1;
     height:6px;
@@ -432,8 +485,8 @@
     height:100%;
     background:var(--accent);
   }
-  .round-item .sc{ width:52px; text-align:right; }
-
+  .round-item .sc{ width:auto; min-width:52px; text-align:right; flex-shrink:0; }
+ 
   .total-block{
     text-align:center;
     padding:22px 0 8px;
@@ -458,29 +511,7 @@
     color:var(--text-dim);
     font-weight:500;
   }
-
-  /* Session compare table */
-  .compare-table{ margin:16px 0 24px; }
-  .compare-table .head{
-    display:flex; gap:10px;
-    font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-dim);
-    padding:0 12px 8px;
-  }
-  .compare-table .head .idxcol{ width:24px; }
-  .compare-table .head .col{ flex:1; text-align:center; }
-  .compare-row-item{
-    display:flex; align-items:center; gap:10px;
-    padding:10px 12px;
-    background:var(--panel-2);
-    border:1px solid var(--line);
-    border-radius:8px;
-    font-family:var(--mono);
-    font-size:13px;
-    margin-bottom:8px;
-  }
-  .compare-row-item .idx{ width:24px; color:var(--text-dim); }
-  .compare-row-item .col{ flex:1; text-align:center; }
-  .compare-row-item .col.win{ color:var(--accent); font-weight:700; }
+ 
   .totals-compare{ display:flex; gap:14px; }
   .totals-compare .side{
     flex:1; text-align:center;
@@ -493,29 +524,32 @@
   .totals-compare .side .num{ font-family:var(--mono); font-weight:800; font-size:26px; }
   .totals-compare .side.winner{ border-color:var(--accent); }
   .totals-compare .side.winner .num{ color:var(--accent); }
-
+ 
   .hide{ display:none !important; }
-
+ 
   @media (prefers-reduced-motion: reduce){
     *{ transition:none !important; animation:none !important; }
   }
-
+ 
   @media (max-width:480px){
     .score-number{ font-size:44px; }
     .aperture-frame{ width:180px; height:180px; }
     .compare-swatch .sw{ width:78px; height:78px; }
     .join-row{ flex-direction:column; }
+    .share-link-row{ flex-direction:column; }
   }
 </style>
 </head>
 <body>
 <div class="wrap">
-
+ 
   <div class="device-label">
     <span class="name">Chromamètre</span>
     <span class="sub" id="deviceSub">Mode — Étalonnage</span>
   </div>
-
+ 
+  <div class="presence-note hide" id="presenceNote"></div>
+ 
   <!-- SETUP SCREEN -->
   <section id="screen-setup">
     <h1>Teste ta mémoire des couleurs.</h1>
@@ -539,20 +573,30 @@
         </div>
         <div class="field-hint">En secondes, de 0.5 à 10 s.</div>
       </div>
-
+ 
       <div class="field">
         <label>Mode de jeu</label>
         <div class="mode-toggle">
           <button type="button" class="mode-btn active" id="modeSoloBtn">Solo</button>
-          <button type="button" class="mode-btn" id="modeSessionBtn">Session à deux</button>
+          <button type="button" class="mode-btn" id="modeSessionBtn">Session à plusieurs</button>
         </div>
       </div>
-
+ 
       <div class="field hide" id="pseudoField">
         <label for="pseudoInput">Ton pseudo</label>
         <input type="text" id="pseudoInput" class="text-input" maxlength="16" placeholder="ex. Raptor">
       </div>
-
+ 
+      <div class="field hide" id="maxPlayersField">
+        <label for="maxPlayersDisplay">Joueurs max (si tu crées la session)</label>
+        <div class="stepper">
+          <button type="button" id="maxPlayersMinusBtn" aria-label="Diminuer">−</button>
+          <input type="number" class="count" id="maxPlayersDisplay" value="2" min="2" max="6" inputmode="numeric">
+          <button type="button" id="maxPlayersPlusBtn" aria-label="Augmenter">+</button>
+        </div>
+        <div class="field-hint">De 2 à 6 joueurs.</div>
+      </div>
+ 
       <div class="field hide" id="sessionActionsField">
         <div class="session-actions">
           <button type="button" class="btn-ghost" id="createSessionBtn">Créer une session (tu choisis les réglages ci-dessus)</button>
@@ -564,24 +608,35 @@
         </div>
         <div class="error-msg" id="setupErrorMsg"></div>
       </div>
-
+ 
       <button class="btn-main" id="startBtn">Démarrer la série</button>
     </div>
+    <button type="button" class="btn-ghost" id="viewHistoryBtn" style="margin-top:14px;">📊 Voir l'historique &amp; le classement</button>
   </section>
-
-  <!-- WAITING SCREEN -->
+ 
+  <!-- WAITING SCREEN (lobby OR waiting for other players' results) -->
   <section id="screen-waiting" class="hide">
     <h1 id="waitingTitle">Session créée.</h1>
-    <p class="lede" id="waitingLede">Partage ce code avec l'autre joueur pour qu'il puisse rejoindre.</p>
+    <p class="lede" id="waitingLede">Partage ce code avec les autres joueurs pour qu'ils puissent rejoindre.</p>
     <div class="panel" style="text-align:center;">
       <div class="hide" id="sessionCodeBlock">
         <div class="field-hint" style="margin-top:0;">Code de session</div>
-        <div class="session-code" id="sessionCodeDisplay">-----</div>
+        <div class="code-row">
+          <div class="session-code" id="sessionCodeDisplay">-----</div>
+          <button type="button" class="icon-btn" id="copyCodeBtn" title="Copier le code">📋</button>
+        </div>
+        <div class="share-link-row">
+          <input type="text" class="text-input" id="shareLinkInput" readonly>
+          <button type="button" class="icon-btn" id="copyLinkBtn" title="Copier le lien">🔗</button>
+        </div>
       </div>
+      <div class="player-list" id="playerList"></div>
       <div class="status-line active" id="waitingStatus">En attente…</div>
+      <button class="btn-main hide" id="startSessionGameBtn" style="margin-top:16px;">Lancer la partie</button>
+      <div class="error-msg" id="waitingErrorMsg"></div>
     </div>
   </section>
-
+ 
   <!-- GAME SCREEN -->
   <section id="screen-game" class="hide">
     <h1 id="gameTitle">Couleur 1 / 5</h1>
@@ -593,7 +648,7 @@
           <div class="aperture" id="apertureMemorize"></div>
         </div>
       </div>
-
+ 
       <div class="sliders hide" id="sliderSection">
         <div class="slider-row">
           <div class="row-top">
@@ -613,7 +668,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- RESULT SCREEN (per round) -->
   <section id="screen-result" class="hide">
     <h1>Résultat — Couleur <span id="resultIdx">1</span></h1>
@@ -623,7 +678,7 @@
         <div class="score-number"><span id="roundScoreVal">0.00</span><span class="over"> / 10</span></div>
         <div class="score-tag" id="scoreTag" style="color:var(--accent);">—</div>
       </div>
-
+ 
       <div class="compare-row">
         <div class="compare-swatch">
           <div class="sw" id="targetSwatch"></div>
@@ -634,7 +689,7 @@
           <div class="lbl">Ta réponse</div>
         </div>
       </div>
-
+ 
       <div class="err-grid">
         <div class="err-card">
           <div class="k">Écart teinte</div>
@@ -645,11 +700,11 @@
           <div class="v" id="lightErrVal">0%</div>
         </div>
       </div>
-
+ 
       <button class="btn-main" id="nextRoundBtn" style="margin-top:24px;">Couleur suivante</button>
     </div>
   </section>
-
+ 
   <!-- SUMMARY SCREEN (solo) -->
   <section id="screen-summary" class="hide">
     <h1>Série terminée.</h1>
@@ -663,40 +718,51 @@
       <button class="btn-main" id="replayBtn" style="margin-top:20px;">Refaire une série</button>
     </div>
   </section>
-
-  <!-- COMPARE SCREEN (session) -->
-  <section id="screen-compare" class="hide">
-    <h1>Résultats de la session.</h1>
-    <p class="lede">Comparaison couleur par couleur.</p>
+ 
+  <!-- LEADERBOARD SCREEN (session, 2+ joueurs) -->
+  <section id="screen-leaderboard" class="hide">
+    <h1>Résultats de la partie.</h1>
+    <p class="lede">Classement de cette série<span id="leaderboardTotalOver"></span>.</p>
     <div class="panel">
-      <div class="compare-table">
-        <div class="head" id="compareHeadNames">
-          <span class="idxcol"></span><span class="col">Toi</span><span class="col">Adversaire</span>
-        </div>
-        <div id="compareRoundList"></div>
-      </div>
-      <div class="totals-compare">
-        <div class="side" id="compareTotalHostSide">
-          <div class="name" id="compareTotalHostName">—</div>
-          <div class="num"><span id="compareTotalHostVal">0.00</span></div>
-        </div>
-        <div class="side" id="compareTotalGuestSide">
-          <div class="name" id="compareTotalGuestName">—</div>
-          <div class="num"><span id="compareTotalGuestVal">0.00</span></div>
-        </div>
-      </div>
-      <button class="btn-main" id="newSessionBtn" style="margin-top:20px;">Nouvelle session</button>
+      <div class="round-list" id="leaderboardList"></div>
+      <button class="btn-main" id="rematchBtn" style="margin-top:16px;">🔁 Revanche</button>
+      <button class="btn-ghost" id="newSessionBtn">Nouvelle session (autres joueurs)</button>
     </div>
   </section>
-
+ 
+  <!-- HISTORY / LEADERBOARD SCREEN -->
+  <section id="screen-history" class="hide">
+    <h1>Historique &amp; classement.</h1>
+    <p class="lede">Statistiques cumulées de toutes les sessions à plusieurs joueurs.</p>
+    <div class="panel">
+      <div class="field-hint" style="margin-top:0;">Classement général (victoires)</div>
+      <div class="round-list" id="leaderboardGlobalList"></div>
+ 
+      <div class="field" style="margin-top:8px;">
+        <label for="h2hInput1">Face-à-face — Pseudo 1</label>
+        <input type="text" class="text-input" id="h2hInput1" placeholder="ex. Raptor">
+      </div>
+      <div class="field">
+        <label for="h2hInput2">Face-à-face — Pseudo 2</label>
+        <input type="text" class="text-input" id="h2hInput2" placeholder="ex. Nova">
+      </div>
+      <button class="btn-main" id="h2hSearchBtn">Comparer</button>
+      <div id="h2hResult" style="margin-top:16px;"></div>
+ 
+      <button class="btn-ghost" id="historyBackBtn" style="margin-top:20px;">Retour</button>
+    </div>
+  </section>
+ 
 </div>
-
+ 
 <script type="module">
   import { firebaseConfig } from './firebase-config.js';
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, serverTimestamp }
-    from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
+  import {
+    getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, serverTimestamp,
+    Timestamp, arrayUnion, increment, collection, addDoc, query, where, orderBy, limit, getDocs
+  } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+ 
   let db = null;
   let firebaseReady = false;
   try {
@@ -706,52 +772,88 @@
   } catch (e) {
     console.error('Firebase init error', e);
   }
-
+ 
   const FIXED_SAT = 65;
-
+  const PRESENCE_TIMEOUT_MS = 15000;
+  const HEARTBEAT_INTERVAL_MS = 5000;
+ 
   let totalRounds = 5;
   let colorDurationSec = 2;
   let currentRound = 0;
   let target = null;
   let results = [];
-
+ 
   let mode = 'solo';
   let pseudo = '';
+  let maxPlayers = 2;
   let sessionCode = null;
   let isHost = false;
   let sessionColors = [];
-  let opponentPseudo = null;
+  let myPlayerId = null;
   let sessionUnsub = null;
   let lastSessionData = null;
-  let waitingFor = null; // null | 'join' | 'results'
-
+  let waitingPhase = null; // null | 'lobby' | 'results'
+  let heartbeatTimer = null;
+  let myRematchJoined = null;
+  let rematchJoining = false;
+ 
   const screens = {
     setup: document.getElementById('screen-setup'),
     waiting: document.getElementById('screen-waiting'),
     game: document.getElementById('screen-game'),
     result: document.getElementById('screen-result'),
     summary: document.getElementById('screen-summary'),
-    compare: document.getElementById('screen-compare'),
+    leaderboard: document.getElementById('screen-leaderboard'),
+    history: document.getElementById('screen-history'),
   };
   const deviceSub = document.getElementById('deviceSub');
-
+ 
   function showScreen(name){
     Object.values(screens).forEach(s => s.classList.add('hide'));
     screens[name].classList.remove('hide');
   }
-
+ 
   function hsl(h,l,s){
     return `hsl(${h}, ${s !== undefined ? s : FIXED_SAT}%, ${l}%)`;
   }
-
+ 
   function escapeHtml(str){
     return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
-
+ 
+  function makePlayerId(){
+    if (window.crypto && crypto.randomUUID) return 'p_' + crypto.randomUUID().slice(0, 8);
+    return 'p_' + Math.random().toString(36).slice(2, 10);
+  }
+ 
+  function sanitizeId(str){
+    return (str || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '_').slice(0, 60) || 'joueur';
+  }
+ 
+  function buildShareLink(code){
+    return `${location.origin}${location.pathname}?code=${code}`;
+  }
+ 
+  function getPlayersArray(data){
+    if (!data) return [];
+    const order = (data.order && data.order.length) ? data.order : Object.keys(data.players || {});
+    return order.filter(id => data.players && data.players[id]).map(id => ({ id, ...data.players[id] }));
+  }
+ 
+  function copyText(text, btn){
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.classList.add('copied');
+      const old = btn.textContent;
+      btn.textContent = '✓';
+      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = old; }, 1500);
+    }).catch(() => {});
+  }
+ 
   // ---- Rounds / duration fields ----
   const roundsDisplay = document.getElementById('roundsDisplay');
   const MIN_ROUNDS = 3, MAX_ROUNDS = 50;
-
+ 
   function setTotalRounds(n){
     if (isNaN(n)) n = totalRounds;
     n = Math.max(MIN_ROUNDS, Math.min(MAX_ROUNDS, Math.round(n)));
@@ -762,10 +864,10 @@
   document.getElementById('plusBtn').addEventListener('click', () => setTotalRounds(totalRounds + 1));
   roundsDisplay.addEventListener('change', () => setTotalRounds(parseInt(roundsDisplay.value, 10)));
   roundsDisplay.addEventListener('blur', () => setTotalRounds(parseInt(roundsDisplay.value, 10)));
-
+ 
   const durationDisplay = document.getElementById('durationDisplay');
   const MIN_DURATION = 0.5, MAX_DURATION = 10, DURATION_STEP = 0.5;
-
+ 
   function setDuration(n){
     if (isNaN(n)) n = colorDurationSec;
     n = Math.round(n / DURATION_STEP) * DURATION_STEP;
@@ -777,154 +879,283 @@
   document.getElementById('durationPlusBtn').addEventListener('click', () => setDuration(colorDurationSec + DURATION_STEP));
   durationDisplay.addEventListener('change', () => setDuration(parseFloat(durationDisplay.value)));
   durationDisplay.addEventListener('blur', () => setDuration(parseFloat(durationDisplay.value)));
-
+ 
+  // ---- Max players field ----
+  const maxPlayersDisplay = document.getElementById('maxPlayersDisplay');
+  const MIN_PLAYERS = 2, MAX_PLAYERS = 6;
+ 
+  function setMaxPlayers(n){
+    if (isNaN(n)) n = maxPlayers;
+    n = Math.max(MIN_PLAYERS, Math.min(MAX_PLAYERS, Math.round(n)));
+    maxPlayers = n;
+    maxPlayersDisplay.value = n;
+  }
+  document.getElementById('maxPlayersMinusBtn').addEventListener('click', () => setMaxPlayers(maxPlayers - 1));
+  document.getElementById('maxPlayersPlusBtn').addEventListener('click', () => setMaxPlayers(maxPlayers + 1));
+  maxPlayersDisplay.addEventListener('change', () => setMaxPlayers(parseInt(maxPlayersDisplay.value, 10)));
+  maxPlayersDisplay.addEventListener('blur', () => setMaxPlayers(parseInt(maxPlayersDisplay.value, 10)));
+ 
   // ---- Mode toggle ----
   const modeSoloBtn = document.getElementById('modeSoloBtn');
   const modeSessionBtn = document.getElementById('modeSessionBtn');
   const pseudoField = document.getElementById('pseudoField');
+  const maxPlayersField = document.getElementById('maxPlayersField');
   const sessionActionsField = document.getElementById('sessionActionsField');
   const pseudoInput = document.getElementById('pseudoInput');
   const joinCodeInput = document.getElementById('joinCodeInput');
   const setupErrorMsg = document.getElementById('setupErrorMsg');
   const startBtn = document.getElementById('startBtn');
-
+ 
   function setMode(m){
     mode = m;
     modeSoloBtn.classList.toggle('active', m === 'solo');
     modeSessionBtn.classList.toggle('active', m === 'session');
     pseudoField.classList.toggle('hide', m !== 'session');
+    maxPlayersField.classList.toggle('hide', m !== 'session');
     sessionActionsField.classList.toggle('hide', m !== 'session');
     startBtn.classList.toggle('hide', m !== 'solo');
     setupErrorMsg.textContent = '';
   }
   modeSoloBtn.addEventListener('click', () => setMode('solo'));
   modeSessionBtn.addEventListener('click', () => setMode('session'));
-
+ 
   function showSetupError(msg){ setupErrorMsg.textContent = msg; }
-
+ 
   function generateSessionCode(){
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sans 0/O ni 1/I pour éviter les confusions
     let code = '';
     for (let i = 0; i < 5; i++) code += chars[Math.floor(Math.random() * chars.length)];
     return code;
   }
-
+ 
   document.getElementById('startBtn').addEventListener('click', () => {
     results = [];
     currentRound = 0;
     deviceSub.textContent = 'Mode — Série en cours';
     nextRound();
   });
-
+ 
+  // ---- Presence (heartbeat + disconnect detection) ----
+  function startHeartbeat(){
+    stopHeartbeat();
+    heartbeatTimer = setInterval(() => {
+      if (db && sessionCode && myPlayerId){
+        updateDoc(doc(db, 'sessions', sessionCode), { [`players.${myPlayerId}.lastSeen`]: Date.now() }).catch(() => {});
+      }
+    }, HEARTBEAT_INTERVAL_MS);
+  }
+  function stopHeartbeat(){
+    if (heartbeatTimer){ clearInterval(heartbeatTimer); heartbeatTimer = null; }
+  }
+ 
+  function updatePresenceNote(){
+    const note = document.getElementById('presenceNote');
+    if (mode !== 'session' || !lastSessionData){ note.classList.add('hide'); note.textContent = ''; return; }
+    const now = Date.now();
+    const issues = getPlayersArray(lastSessionData)
+      .filter(p => p.id !== myPlayerId)
+      .map(p => {
+        if (p.left) return `${p.pseudo} a quitté la partie`;
+        if (p.lastSeen && (now - p.lastSeen) > PRESENCE_TIMEOUT_MS) return `${p.pseudo} semble déconnecté(e)`;
+        return null;
+      })
+      .filter(Boolean);
+    if (issues.length){
+      note.textContent = '⚠ ' + issues.join(' · ');
+      note.classList.remove('hide');
+    } else {
+      note.classList.add('hide');
+      note.textContent = '';
+    }
+  }
+  setInterval(updatePresenceNote, 3000);
+ 
+  window.addEventListener('beforeunload', () => {
+    if (db && sessionCode && myPlayerId){
+      try { updateDoc(doc(db, 'sessions', sessionCode), { [`players.${myPlayerId}.left`]: true }); } catch (e) {}
+    }
+  });
+ 
+  // ---- Create / join session ----
+  async function createSession(p, maxPlayersOverride){
+    const colors = [];
+    for (let i = 0; i < totalRounds; i++) colors.push(randTarget());
+    const code = generateSessionCode();
+    myPlayerId = makePlayerId();
+    const mp = maxPlayersOverride || maxPlayers;
+    const expireAt = Timestamp.fromDate(new Date(Date.now() + 30 * 24 * 3600 * 1000));
+ 
+    await setDoc(doc(db, 'sessions', code), {
+      code,
+      createdAt: serverTimestamp(),
+      expireAt,
+      rounds: totalRounds,
+      durationSec: colorDurationSec,
+      maxPlayers: mp,
+      status: 'waiting',
+      colors,
+      hostId: myPlayerId,
+      order: [myPlayerId],
+      players: {
+        [myPlayerId]: { pseudo: p, isHost: true, joinedAt: Date.now(), lastSeen: Date.now(), left: false, results: null }
+      },
+      rematchCode: null,
+      historyLogged: false
+    });
+ 
+    isHost = true;
+    sessionCode = code;
+    sessionColors = colors;
+    pseudo = p;
+    waitingPhase = 'lobby';
+    startHeartbeat();
+    listenToSession(code);
+  }
+ 
+  async function joinSessionByCode(code, p){
+    const ref = doc(db, 'sessions', code);
+    const snap = await getDoc(ref);
+    if (!snap.exists()) throw { code: 'notfound' };
+    const data = snap.data();
+    if (data.status !== 'waiting') throw { code: 'started' };
+    const count = Object.keys(data.players || {}).length;
+    if (count >= (data.maxPlayers || 2)) throw { code: 'full' };
+ 
+    myPlayerId = makePlayerId();
+    await updateDoc(ref, {
+      [`players.${myPlayerId}`]: { pseudo: p, isHost: false, joinedAt: Date.now(), lastSeen: Date.now(), left: false, results: null },
+      order: arrayUnion(myPlayerId)
+    });
+ 
+    isHost = false;
+    sessionCode = code;
+    sessionColors = data.colors;
+    totalRounds = data.rounds;
+    colorDurationSec = data.durationSec;
+    pseudo = p;
+    waitingPhase = 'lobby';
+    startHeartbeat();
+    listenToSession(code);
+  }
+ 
   document.getElementById('createSessionBtn').addEventListener('click', async () => {
     if (!firebaseReady){ showSetupError('Firebase non configuré — complète firebase-config.js.'); return; }
     const p = pseudoInput.value.trim();
     if (!p){ showSetupError('Entre un pseudo avant de créer une session.'); return; }
-    pseudo = p;
-
-    const colors = [];
-    for (let i = 0; i < totalRounds; i++) colors.push(randTarget());
-    const code = generateSessionCode();
-
     try {
-      await setDoc(doc(db, 'sessions', code), {
-        createdAt: serverTimestamp(),
-        rounds: totalRounds,
-        durationSec: colorDurationSec,
-        colors,
-        hostPseudo: pseudo,
-        guestPseudo: null,
-        hostResults: null,
-        guestResults: null
-      });
+      await createSession(p, parseInt(maxPlayersDisplay.value, 10));
     } catch (e) {
       console.error(e);
       showSetupError("Impossible de créer la session — vérifie ta config Firebase et tes règles Firestore.");
       return;
     }
-
-    isHost = true;
-    sessionCode = code;
-    sessionColors = colors;
-    waitingFor = 'join';
-
-    document.getElementById('waitingTitle').textContent = 'Session créée.';
-    document.getElementById('waitingLede').textContent = "Partage ce code avec l'autre joueur pour qu'il puisse rejoindre.";
-    document.getElementById('sessionCodeBlock').classList.remove('hide');
-    document.getElementById('sessionCodeDisplay').textContent = code;
-    document.getElementById('waitingStatus').textContent = "En attente de l'autre joueur…";
     deviceSub.textContent = 'Mode — Session : en attente';
     showScreen('waiting');
-    listenToSession(code);
   });
-
+ 
   document.getElementById('joinSessionBtn').addEventListener('click', async () => {
     if (!firebaseReady){ showSetupError('Firebase non configuré — complète firebase-config.js.'); return; }
     const p = pseudoInput.value.trim();
     const code = joinCodeInput.value.trim().toUpperCase();
     if (!p){ showSetupError('Entre un pseudo avant de rejoindre.'); return; }
     if (!code){ showSetupError('Entre un code de session.'); return; }
-    pseudo = p;
-
-    let snap;
     try {
-      snap = await getDoc(doc(db, 'sessions', code));
+      await joinSessionByCode(code, p);
     } catch (e) {
       console.error(e);
-      showSetupError('Impossible de contacter le service — vérifie ta config Firebase.');
+      if (e && e.code === 'notfound') showSetupError('Code introuvable.');
+      else if (e && e.code === 'started') showSetupError('Cette session a déjà démarré.');
+      else if (e && e.code === 'full') showSetupError('Cette session est complète.');
+      else showSetupError('Impossible de rejoindre — vérifie tes règles Firestore.');
       return;
     }
-    if (!snap.exists()){ showSetupError('Code introuvable.'); return; }
-    const data = snap.data();
-    if (data.guestPseudo){ showSetupError('Cette session est déjà complète.'); return; }
-
-    try {
-      await updateDoc(doc(db, 'sessions', code), { guestPseudo: pseudo });
-    } catch (e) {
-      console.error(e);
-      showSetupError('Impossible de rejoindre — vérifie tes règles Firestore.');
-      return;
-    }
-
-    isHost = false;
-    sessionCode = code;
-    sessionColors = data.colors;
-    totalRounds = data.rounds;
-    colorDurationSec = data.durationSec;
-    opponentPseudo = data.hostPseudo;
-
-    listenToSession(code);
-    beginSessionGame();
+    deviceSub.textContent = 'Mode — Session : en attente';
+    showScreen('waiting');
   });
-
+ 
+  // ---- Copy buttons ----
+  document.getElementById('copyCodeBtn').addEventListener('click', () => copyText(sessionCode || '', document.getElementById('copyCodeBtn')));
+  document.getElementById('copyLinkBtn').addEventListener('click', () => copyText(document.getElementById('shareLinkInput').value, document.getElementById('copyLinkBtn')));
+ 
+  // ---- Lobby rendering ----
+  function renderWaitingScreen(data){
+    const players = getPlayersArray(data);
+    const list = document.getElementById('playerList');
+    list.innerHTML = '';
+    const now = Date.now();
+    players.forEach(p => {
+      const dot = p.left ? '🔴' : ((p.lastSeen && (now - p.lastSeen) > PRESENCE_TIMEOUT_MS) ? '🟠' : '🟢');
+      const row = document.createElement('div');
+      row.className = 'player-row';
+      row.innerHTML = `<span class="dot">${dot}</span><span class="pname">${escapeHtml(p.pseudo)}${p.isHost ? '<span class="host-tag">hôte</span>' : ''}${p.id === myPlayerId ? ' (toi)' : ''}</span>`;
+      list.appendChild(row);
+    });
+ 
+    const startBtnEl = document.getElementById('startSessionGameBtn');
+    const waitingStatusEl = document.getElementById('waitingStatus');
+    const codeBlock = document.getElementById('sessionCodeBlock');
+ 
+    if (waitingPhase === 'lobby'){
+      document.getElementById('waitingTitle').textContent = isHost ? 'Session créée.' : "En salle d'attente.";
+      document.getElementById('waitingLede').textContent = "Partage ce code ou ce lien avec les autres joueurs pour qu'ils rejoignent.";
+      codeBlock.classList.toggle('hide', !isHost);
+      if (isHost){
+        document.getElementById('sessionCodeDisplay').textContent = sessionCode;
+        document.getElementById('shareLinkInput').value = buildShareLink(sessionCode);
+      }
+      waitingStatusEl.textContent = `${players.length} / ${data.maxPlayers || 2} joueur(s)`;
+      startBtnEl.classList.toggle('hide', !(isHost && players.length >= 2 && data.status === 'waiting'));
+    } else {
+      document.getElementById('waitingTitle').textContent = 'Série terminée.';
+      document.getElementById('waitingLede').textContent = "On attend que les autres joueurs terminent la leur.";
+      codeBlock.classList.add('hide');
+      const doneCount = players.filter(p => p.results).length;
+      waitingStatusEl.textContent = `${doneCount} / ${players.length} joueur(s) ont terminé…`;
+      startBtnEl.classList.add('hide');
+    }
+  }
+ 
+  document.getElementById('startSessionGameBtn').addEventListener('click', async () => {
+    try { await updateDoc(doc(db, 'sessions', sessionCode), { status: 'playing' }); }
+    catch (e) { console.error(e); }
+  });
+ 
   function listenToSession(code){
     if (sessionUnsub) sessionUnsub();
     sessionUnsub = onSnapshot(doc(db, 'sessions', code), (snap) => {
       if (!snap.exists()) return;
       const data = snap.data();
       lastSessionData = data;
-
-      if (waitingFor === 'join' && data.guestPseudo){
-        opponentPseudo = data.guestPseudo;
-        waitingFor = null;
-        beginSessionGame();
-      } else if (waitingFor === 'results'){
-        const oppKey = isHost ? 'guestResults' : 'hostResults';
-        if (data[oppKey]){
-          waitingFor = null;
-          renderCompare(data);
+      updatePresenceNote();
+ 
+      if (waitingPhase === 'lobby'){
+        if (data.status === 'playing'){
+          waitingPhase = null;
+          beginSessionGame();
+        } else {
+          renderWaitingScreen(data);
+          if (isHost && data.status === 'waiting' && getPlayersArray(data).length >= (data.maxPlayers || 2)){
+            updateDoc(doc(db, 'sessions', code), { status: 'playing' }).catch(console.error);
+          }
         }
+      } else if (waitingPhase === 'results'){
+        evaluateSessionProgress();
+      }
+ 
+      if (data.rematchCode && data.rematchCode !== myRematchJoined && !rematchJoining){
+        rematchJoining = true;
+        joinRematch(data.rematchCode).finally(() => { rematchJoining = false; });
       }
     });
   }
-
+ 
   function beginSessionGame(){
     results = [];
     currentRound = 0;
-    deviceSub.textContent = 'Mode — vs ' + (opponentPseudo || '?');
+    deviceSub.textContent = 'Mode — Partie en cours';
     nextRound();
   }
-
+ 
   // ---- Game screen ----
   const gameTitle = document.getElementById('gameTitle');
   const statusLine = document.getElementById('statusLine');
@@ -935,14 +1166,14 @@
   const hueVal = document.getElementById('hueVal');
   const lightVal = document.getElementById('lightVal');
   const submitGuessBtn = document.getElementById('submitGuessBtn');
-
+ 
   function randTarget(){
     return {
       hue: Math.floor(Math.random() * 361),
       light: Math.floor(Math.random() * 71) + 15
     };
   }
-
+ 
   function updateGuessPreview(){
     const h = parseInt(hueSlider.value, 10);
     const l = parseInt(lightSlider.value, 10);
@@ -953,7 +1184,7 @@
   }
   hueSlider.addEventListener('input', updateGuessPreview);
   lightSlider.addEventListener('input', updateGuessPreview);
-
+ 
   function nextRound(){
     currentRound++;
     if (currentRound > totalRounds){
@@ -963,41 +1194,41 @@
     }
     gameTitle.textContent = `Couleur ${currentRound} / ${totalRounds}`;
     target = (mode === 'session') ? sessionColors[currentRound - 1] : randTarget();
-
+ 
     sliderSection.classList.add('hide');
     statusLine.textContent = 'Mémorisation';
     statusLine.classList.add('active');
     apertureMemorize.classList.remove('hidden-swatch');
     apertureMemorize.style.backgroundColor = hsl(target.hue, target.light);
-
+ 
     showScreen('game');
-
+ 
     setTimeout(() => {
       apertureMemorize.classList.remove('hidden-swatch');
       statusLine.textContent = 'À toi de jouer';
       statusLine.classList.remove('active');
-
+ 
       hueSlider.value = 180;
       lightSlider.value = 50;
       updateGuessPreview();
       sliderSection.classList.remove('hide');
     }, colorDurationSec * 1000);
   }
-
+ 
   function computeScore(target, guessHue, guessLight){
     let hueDiff = Math.abs(target.hue - guessHue);
     if (hueDiff > 180) hueDiff = 360 - hueDiff;
     const lightDiff = Math.abs(target.light - guessLight);
-
+ 
     const hueFactor = 1 - Math.pow(hueDiff / 180, 0.75);
     const lightFactor = 1 - Math.pow(lightDiff / 100, 0.85);
-
+ 
     let score = 10 * hueFactor * lightFactor;
     score = Math.max(0, Math.min(10, score));
     score = Math.round(score * 100) / 100;
     return { score, hueDiff, lightDiff };
   }
-
+ 
   const resultIdx = document.getElementById('resultIdx');
   const resultTag = document.getElementById('resultTag');
   const roundScoreVal = document.getElementById('roundScoreVal');
@@ -1006,7 +1237,7 @@
   const guessSwatch = document.getElementById('guessSwatch');
   const hueErrVal = document.getElementById('hueErrVal');
   const lightErrVal = document.getElementById('lightErrVal');
-
+ 
   function tagFor(score){
     if (score >= 9) return { text: 'Œil de lynx', color: 'var(--accent)' };
     if (score >= 7) return { text: 'Très précis', color: 'var(--accent)' };
@@ -1014,36 +1245,36 @@
     if (score >= 3) return { text: 'Approximatif', color: 'var(--amber)' };
     return { text: 'À revoir', color: 'var(--red)' };
   }
-
+ 
   submitGuessBtn.addEventListener('click', () => {
     const guessHue = parseInt(hueSlider.value, 10);
     const guessLight = parseInt(lightSlider.value, 10);
     const { score, hueDiff, lightDiff } = computeScore(target, guessHue, guessLight);
-
+ 
     results.push({ hue: target.hue, light: target.light, guessHue, guessLight, score, hueDiff, lightDiff });
-
+ 
     resultIdx.textContent = currentRound;
     roundScoreVal.textContent = score.toFixed(2);
     const t = tagFor(score);
     scoreTag.textContent = t.text;
     scoreTag.style.color = t.color;
     resultTag.textContent = 'Écart total pondéré converti sur 10 points.';
-
+ 
     targetSwatch.style.backgroundColor = hsl(target.hue, target.light);
     guessSwatch.style.backgroundColor = hsl(guessHue, guessLight);
     hueErrVal.textContent = Math.round(hueDiff) + '°';
     lightErrVal.textContent = Math.round(lightDiff) + '%';
-
+ 
     showScreen('result');
   });
-
+ 
   document.getElementById('nextRoundBtn').addEventListener('click', () => nextRound());
-
+ 
   // ---- Summary (solo) ----
   const roundList = document.getElementById('roundList');
   const totalScoreVal = document.getElementById('totalScoreVal');
   const totalOverVal = document.getElementById('totalOverVal');
-
+ 
   function renderSummary(){
     deviceSub.textContent = 'Mode — Bilan';
     roundList.innerHTML = '';
@@ -1063,91 +1294,250 @@
     totalScoreVal.textContent = sum.toFixed(2);
     totalOverVal.textContent = ' / ' + (totalRounds * 10).toFixed(0);
   }
-
+ 
   document.getElementById('replayBtn').addEventListener('click', () => {
     deviceSub.textContent = 'Mode — Étalonnage';
     showScreen('setup');
   });
-
-  // ---- Session finish + compare ----
+ 
+  // ---- Session finish + leaderboard ----
   async function finishSessionSeries(){
     const total = Math.round(results.reduce((s, r) => s + r.score, 0) * 100) / 100;
-    const payload = { scores: results.map(r => r.score), total, finishedAt: serverTimestamp() };
-    const field = isHost ? 'hostResults' : 'guestResults';
-
+    const payload = { scores: results.map(r => r.score), total, finishedAt: Date.now() };
+ 
     try {
-      await updateDoc(doc(db, 'sessions', sessionCode), { [field]: payload });
+      await updateDoc(doc(db, 'sessions', sessionCode), { [`players.${myPlayerId}.results`]: payload });
     } catch (e) {
       console.error(e);
     }
-
-    const oppKey = isHost ? 'guestResults' : 'hostResults';
-    if (lastSessionData && lastSessionData[oppKey]){
-      renderCompare({ ...lastSessionData, [field]: payload });
+ 
+    if (lastSessionData && lastSessionData.players && lastSessionData.players[myPlayerId]){
+      lastSessionData.players[myPlayerId].results = payload;
+    }
+    waitingPhase = 'results';
+    evaluateSessionProgress();
+  }
+ 
+  function evaluateSessionProgress(){
+    const data = lastSessionData;
+    if (!data) return;
+    const players = getPlayersArray(data);
+    const allDone = players.length > 0 && players.every(p => p.results);
+    if (allDone){
+      waitingPhase = null;
+      renderLeaderboard(data);
     } else {
-      waitingFor = 'results';
-      document.getElementById('waitingTitle').textContent = 'Série terminée.';
-      document.getElementById('waitingLede').textContent = "On attend que l'autre joueur termine la sienne.";
-      document.getElementById('sessionCodeBlock').classList.add('hide');
-      document.getElementById('waitingStatus').textContent = "En attente des résultats de l'adversaire…";
+      renderWaitingScreen(data);
       deviceSub.textContent = 'Mode — En attente des résultats';
       showScreen('waiting');
     }
   }
-
-  function renderCompare(data){
-    deviceSub.textContent = 'Mode — Comparaison';
-    const hostName = data.hostPseudo || 'Joueur 1';
-    const guestName = data.guestPseudo || 'Joueur 2';
-    const meIsHost = isHost;
-    const myName = meIsHost ? hostName : guestName;
-    const oppName = meIsHost ? guestName : hostName;
-
-    document.getElementById('compareHeadNames').innerHTML =
-      `<span class="idxcol"></span><span class="col">${escapeHtml(myName)}</span><span class="col">${escapeHtml(oppName)}</span>`;
-
-    const hostScores = data.hostResults ? data.hostResults.scores : [];
-    const guestScores = data.guestResults ? data.guestResults.scores : [];
-    const myScores = meIsHost ? hostScores : guestScores;
-    const oppScores = meIsHost ? guestScores : hostScores;
-    const myTotal = (meIsHost ? data.hostResults : data.guestResults)?.total || 0;
-    const oppTotal = (meIsHost ? data.guestResults : data.hostResults)?.total || 0;
-
-    const list = document.getElementById('compareRoundList');
+ 
+  function renderLeaderboard(data){
+    deviceSub.textContent = 'Mode — Résultats';
+    const players = getPlayersArray(data).filter(p => p.results);
+    const sorted = [...players].sort((a, b) => b.results.total - a.results.total);
+    const topScore = sorted.length ? sorted[0].results.total : 0;
+ 
+    const list = document.getElementById('leaderboardList');
     list.innerHTML = '';
-    const n = Math.max(myScores.length, oppScores.length);
-    for (let i = 0; i < n; i++){
-      const ms = myScores[i] !== undefined ? myScores[i].toFixed(2) : '—';
-      const os = oppScores[i] !== undefined ? oppScores[i].toFixed(2) : '—';
-      const myWin = myScores[i] !== undefined && oppScores[i] !== undefined && myScores[i] > oppScores[i];
-      const oppWin = myScores[i] !== undefined && oppScores[i] !== undefined && oppScores[i] > myScores[i];
-      const item = document.createElement('div');
-      item.className = 'compare-row-item';
-      item.innerHTML = `<span class="idx">#${i+1}</span><span class="col${myWin?' win':''}">${ms}</span><span class="col${oppWin?' win':''}">${os}</span>`;
-      list.appendChild(item);
-    }
-
-    document.getElementById('compareTotalHostName').textContent = myName;
-    document.getElementById('compareTotalGuestName').textContent = oppName;
-    document.getElementById('compareTotalHostVal').textContent = myTotal.toFixed(2);
-    document.getElementById('compareTotalGuestVal').textContent = oppTotal.toFixed(2);
-    document.getElementById('compareTotalHostSide').classList.toggle('winner', myTotal > oppTotal);
-    document.getElementById('compareTotalGuestSide').classList.toggle('winner', oppTotal > myTotal);
-
-    showScreen('compare');
+    sorted.forEach((p, i) => {
+      const isWinner = p.results.total === topScore;
+      const row = document.createElement('div');
+      row.className = 'round-item' + (isWinner ? ' leaderboard-winner' : '');
+      row.innerHTML = `
+        <span class="idx">#${i+1}</span>
+        <span class="pname" style="flex:1;">${escapeHtml(p.pseudo)}${p.id === myPlayerId ? ' (toi)' : ''}${isWinner ? ' 🏆' : ''}</span>
+        <span class="sc">${p.results.total.toFixed(2)}</span>
+      `;
+      list.appendChild(row);
+    });
+ 
+    document.getElementById('leaderboardTotalOver').textContent = ' / ' + (data.rounds * 10).toFixed(0);
+    showScreen('leaderboard');
+    maybeWriteHistory(data);
   }
-
-  document.getElementById('newSessionBtn').addEventListener('click', () => {
-    if (sessionUnsub) { sessionUnsub(); sessionUnsub = null; }
+ 
+  async function maybeWriteHistory(data){
+    if (!isHost) return;
+    if (data.historyLogged) return;
+    const players = getPlayersArray(data).filter(p => p.results);
+    if (players.length < 2) return;
+ 
+    const sorted = [...players].sort((a, b) => b.results.total - a.results.total);
+    sorted.forEach((p, i) => { p.rank = i + 1; });
+ 
+    try {
+      await addDoc(collection(db, 'history'), {
+        finishedAt: serverTimestamp(),
+        rounds: data.rounds,
+        pseudoList: sorted.map(p => p.pseudo.toLowerCase()),
+        players: sorted.map(p => ({ pseudo: p.pseudo, total: p.results.total, rank: p.rank }))
+      });
+      for (const p of sorted){
+        const statRef = doc(db, 'playerStats', sanitizeId(p.pseudo));
+        await setDoc(statRef, {
+          pseudo: p.pseudo,
+          games: increment(1),
+          wins: increment(p.rank === 1 ? 1 : 0),
+          totalScoreSum: increment(p.results.total)
+        }, { merge: true });
+      }
+      await updateDoc(doc(db, 'sessions', sessionCode), { historyLogged: true });
+    } catch (e) {
+      console.error('Erreur écriture historique', e);
+    }
+  }
+ 
+  // ---- Rematch ----
+  async function joinRematch(code){
+    try {
+      results = [];
+      currentRound = 0;
+      stopHeartbeat();
+      await joinSessionByCode(code, pseudo);
+      myRematchJoined = code;
+      deviceSub.textContent = 'Mode — Session : en attente (revanche)';
+      showScreen('waiting');
+    } catch (e) {
+      console.error('Rejoindre la revanche a échoué', e);
+    }
+  }
+ 
+  document.getElementById('rematchBtn').addEventListener('click', async () => {
+    const btn = document.getElementById('rematchBtn');
+    btn.disabled = true;
+    const oldText = btn.textContent;
+    btn.textContent = 'Préparation de la revanche…';
+    try {
+      if (lastSessionData && lastSessionData.rematchCode){
+        if (lastSessionData.rematchCode !== myRematchJoined){
+          await joinRematch(lastSessionData.rematchCode);
+        }
+      } else {
+        const oldCode = sessionCode;
+        const mp = (lastSessionData && lastSessionData.maxPlayers) || maxPlayers;
+        const rounds = (lastSessionData && lastSessionData.rounds) || totalRounds;
+        const duration = (lastSessionData && lastSessionData.durationSec) || colorDurationSec;
+        const p = pseudo;
+        totalRounds = rounds;
+        colorDurationSec = duration;
+        results = [];
+        currentRound = 0;
+        stopHeartbeat();
+        await createSession(p, mp);
+        myRematchJoined = sessionCode;
+        await updateDoc(doc(db, 'sessions', oldCode), { rematchCode: sessionCode }).catch(e => console.error(e));
+        deviceSub.textContent = 'Mode — Session : en attente (revanche)';
+        showScreen('waiting');
+      }
+    } catch (e) {
+      console.error(e);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = oldText;
+    }
+  });
+ 
+  function resetToSetup(){
+    if (sessionUnsub){ sessionUnsub(); sessionUnsub = null; }
+    stopHeartbeat();
     mode = 'solo';
-    sessionCode = null; isHost = false; sessionColors = []; opponentPseudo = null;
-    lastSessionData = null; waitingFor = null;
+    sessionCode = null; isHost = false; sessionColors = []; myPlayerId = null;
+    lastSessionData = null; waitingPhase = null; myRematchJoined = null;
     pseudoInput.value = ''; joinCodeInput.value = '';
     setMode('solo');
     deviceSub.textContent = 'Mode — Étalonnage';
+    updatePresenceNote();
+    showScreen('setup');
+  }
+  document.getElementById('newSessionBtn').addEventListener('click', resetToSetup);
+ 
+  // ---- Historique / classement ----
+  async function loadGlobalLeaderboard(){
+    const el = document.getElementById('leaderboardGlobalList');
+    el.innerHTML = '<div class="field-hint">Chargement…</div>';
+    try {
+      const qy = query(collection(db, 'playerStats'), orderBy('wins', 'desc'), limit(15));
+      const snaps = await getDocs(qy);
+      if (snaps.empty){ el.innerHTML = '<div class="field-hint">Aucune partie enregistrée pour le moment.</div>'; return; }
+      el.innerHTML = '';
+      let i = 0;
+      snaps.forEach(s => {
+        i++;
+        const d = s.data();
+        const row = document.createElement('div');
+        row.className = 'round-item';
+        row.innerHTML = `
+          <span class="idx">#${i}</span>
+          <span class="pname" style="flex:1;">${escapeHtml(d.pseudo || s.id)}</span>
+          <span class="sc">${d.wins || 0} 🏆 / ${d.games || 0}</span>
+        `;
+        el.appendChild(row);
+      });
+    } catch (e) {
+      console.error(e);
+      el.innerHTML = '<div class="field-hint">Erreur de chargement (vérifie tes règles Firestore).</div>';
+    }
+  }
+ 
+  async function searchHeadToHead(){
+    const p1 = document.getElementById('h2hInput1').value.trim();
+    const p2 = document.getElementById('h2hInput2').value.trim();
+    const out = document.getElementById('h2hResult');
+    if (!p1 || !p2){ out.innerHTML = '<div class="field-hint">Entre les deux pseudos.</div>'; return; }
+    out.innerHTML = '<div class="field-hint">Recherche…</div>';
+    try {
+      const qy = query(collection(db, 'history'), where('pseudoList', 'array-contains', p1.toLowerCase()), limit(100));
+      const snaps = await getDocs(qy);
+      let p1wins = 0, p2wins = 0, games = 0;
+      snaps.forEach(s => {
+        const d = s.data();
+        if (!d.pseudoList.includes(p2.toLowerCase())) return;
+        const e1 = d.players.find(pp => pp.pseudo.toLowerCase() === p1.toLowerCase());
+        const e2 = d.players.find(pp => pp.pseudo.toLowerCase() === p2.toLowerCase());
+        if (e1 && e2){
+          games++;
+          if (e1.total > e2.total) p1wins++;
+          else if (e2.total > e1.total) p2wins++;
+        }
+      });
+      if (games === 0){ out.innerHTML = '<div class="field-hint">Aucune partie trouvée entre ces deux pseudos.</div>'; return; }
+      out.innerHTML = `
+        <div class="totals-compare">
+          <div class="side ${p1wins > p2wins ? 'winner' : ''}"><div class="name">${escapeHtml(p1)}</div><div class="num">${p1wins}</div></div>
+          <div class="side ${p2wins > p1wins ? 'winner' : ''}"><div class="name">${escapeHtml(p2)}</div><div class="num">${p2wins}</div></div>
+        </div>
+        <div class="field-hint" style="margin-top:10px;">${games} partie(s) jouée(s) ensemble.</div>
+      `;
+    } catch (e) {
+      console.error(e);
+      out.innerHTML = '<div class="field-hint">Erreur pendant la recherche (vérifie tes règles Firestore).</div>';
+    }
+  }
+ 
+  document.getElementById('viewHistoryBtn').addEventListener('click', () => {
+    deviceSub.textContent = 'Mode — Historique';
+    showScreen('history');
+    loadGlobalLeaderboard();
+  });
+  document.getElementById('historyBackBtn').addEventListener('click', () => {
+    deviceSub.textContent = 'Mode — Étalonnage';
     showScreen('setup');
   });
-
+  document.getElementById('h2hSearchBtn').addEventListener('click', searchHeadToHead);
+ 
+  // ---- Lien de partage direct (?code=XXXXX) ----
+  (function initFromUrl(){
+    const params = new URLSearchParams(location.search);
+    const code = params.get('code');
+    if (code){
+      setMode('session');
+      joinCodeInput.value = code.toUpperCase();
+      pseudoInput.focus();
+    }
+  })();
+ 
   // init preview
   updateGuessPreview();
 </script>

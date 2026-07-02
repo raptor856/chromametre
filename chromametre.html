@@ -58,7 +58,7 @@
     color:var(--text-dim);
     letter-spacing:0.05em;
   }
-
+ 
   h1{
     font-family:var(--display);
     font-weight:700;
@@ -74,7 +74,7 @@
     margin:0 0 28px;
     max-width:46ch;
   }
-
+ 
   .panel{
     background:var(--panel);
     border:1px solid var(--line);
@@ -89,7 +89,7 @@
     background:linear-gradient(90deg, transparent, var(--accent-dim), transparent);
     opacity:0.6;
   }
-
+ 
   /* Setup screen */
   .field{
     margin-bottom:22px;
@@ -144,7 +144,7 @@
     text-align:center;
     letter-spacing:0.05em;
   }
-
+ 
   .btn-main{
     width:100%;
     padding:16px;
@@ -164,7 +164,7 @@
   .btn-main:active{ transform:scale(0.99); }
   .btn-main:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
   .btn-main:disabled{ opacity:0.4; cursor:not-allowed; }
-
+ 
   .btn-ghost{
     width:100%;
     padding:14px;
@@ -181,7 +181,7 @@
   }
   .btn-ghost:hover{ border-color:var(--text-dim); color:var(--text); }
   .btn-ghost:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-
+ 
   /* Mode toggle + session fields */
   .mode-toggle{ display:flex; gap:10px; }
   .mode-btn{
@@ -201,7 +201,7 @@
   .mode-btn:hover{ border-color:var(--accent); }
   .mode-btn.active{ border-color:var(--accent); color:var(--accent); background:rgba(124,255,178,0.08); }
   .mode-btn:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-
+ 
   .text-input{
     width:100%;
     padding:14px;
@@ -214,7 +214,7 @@
   }
   .text-input:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
   .text-input::placeholder{ color:var(--text-dim); }
-
+ 
   .session-actions{ display:flex; flex-direction:column; gap:12px; }
   .join-row{ display:flex; gap:10px; }
   .join-row .code-input{ text-transform:uppercase; letter-spacing:0.15em; text-align:center; }
@@ -227,7 +227,7 @@
     text-transform:uppercase;
     margin:2px 0;
   }
-
+ 
   .session-code{
     font-family:var(--mono);
     font-weight:800;
@@ -236,7 +236,7 @@
     color:var(--accent);
     margin:10px 0;
   }
-
+ 
   .error-msg{
     font-family:var(--mono);
     font-size:12px;
@@ -245,7 +245,7 @@
     text-align:center;
     min-height:16px;
   }
-
+ 
   /* Aperture / swatch */
   .stage{
     display:flex; flex-direction:column; align-items:center;
@@ -278,7 +278,7 @@
     height:16px;
   }
   .status-line.active{ color:var(--accent); }
-
+ 
   /* Sliders */
   .sliders{ margin-top:8px; }
   .slider-row{ margin-bottom:24px; }
@@ -330,7 +330,7 @@
     cursor:pointer;
   }
   input[type=range]:focus-visible{ outline:2px solid #fff; outline-offset:2px; }
-
+ 
   /* Result */
   .score-block{
     text-align:center;
@@ -399,7 +399,7 @@
     font-size:18px;
     font-weight:700;
   }
-
+ 
   /* Summary */
   .round-list{
     display:flex; flex-direction:column; gap:8px;
@@ -433,7 +433,7 @@
     background:var(--accent);
   }
   .round-item .sc{ width:52px; text-align:right; }
-
+ 
   .total-block{
     text-align:center;
     padding:22px 0 8px;
@@ -458,7 +458,7 @@
     color:var(--text-dim);
     font-weight:500;
   }
-
+ 
   /* Session compare table */
   .compare-table{ margin:16px 0 24px; }
   .compare-table .head{
@@ -493,13 +493,53 @@
   .totals-compare .side .num{ font-family:var(--mono); font-weight:800; font-size:26px; }
   .totals-compare .side.winner{ border-color:var(--accent); }
   .totals-compare .side.winner .num{ color:var(--accent); }
-
+ 
+  /* Session extras */
+  .code-row{ display:flex; align-items:center; justify-content:center; gap:10px; }
+  .icon-btn{
+    background:var(--panel-2); border:1px solid var(--line); color:var(--text-dim);
+    border-radius:8px; padding:8px 12px; font-family:var(--mono); font-size:12px;
+    cursor:pointer; transition:border-color .15s, color .15s;
+  }
+  .icon-btn:hover{ border-color:var(--accent); color:var(--accent); }
+  .icon-btn.copied{ border-color:var(--accent); color:var(--accent); }
+  .share-link-row{ margin-top:14px; }
+  .invite-hint{
+    font-family:var(--mono); font-size:11.5px; color:var(--accent); text-align:center;
+    background:rgba(124,255,178,0.08); border:1px solid var(--accent-dim);
+    border-radius:8px; padding:10px 12px; margin-bottom:18px;
+  }
+  .opponent-warning{
+    font-family:var(--mono); font-size:11.5px; color:var(--amber); text-align:center;
+    margin-top:10px;
+  }
+  .btn-row{ display:flex; gap:10px; margin-top:20px; }
+  .btn-row .btn-main, .btn-row .btn-ghost{ flex:1; margin-top:0; }
+  .history-link{
+    display:block; text-align:center; font-family:var(--mono); font-size:11.5px;
+    color:var(--text-dim); margin-top:14px; cursor:pointer; text-decoration:underline;
+    background:none; border:none; width:100%;
+  }
+  .history-link:hover{ color:var(--accent); }
+  .history-item{
+    display:flex; align-items:center; gap:10px; padding:10px 0;
+    border-bottom:1px solid var(--line); font-family:var(--mono); font-size:12.5px;
+  }
+  .history-item:last-child{ border-bottom:none; }
+  .history-item .res{ width:26px; text-align:center; font-weight:800; }
+  .history-item .res.win{ color:var(--accent); }
+  .history-item .res.loss{ color:var(--red); }
+  .history-item .res.draw{ color:var(--text-dim); }
+  .history-item .opp{ flex:1; color:var(--text); }
+  .history-item .sc{ color:var(--text-dim); }
+  .history-empty{ color:var(--text-dim); font-family:var(--mono); font-size:12.5px; text-align:center; padding:20px 0; }
+ 
   .hide{ display:none !important; }
-
+ 
   @media (prefers-reduced-motion: reduce){
     *{ transition:none !important; animation:none !important; }
   }
-
+ 
   @media (max-width:480px){
     .score-number{ font-size:44px; }
     .aperture-frame{ width:180px; height:180px; }
@@ -510,16 +550,17 @@
 </head>
 <body>
 <div class="wrap">
-
+ 
   <div class="device-label">
     <span class="name">Chromamètre</span>
     <span class="sub" id="deviceSub">Mode — Étalonnage</span>
   </div>
-
+ 
   <!-- SETUP SCREEN -->
   <section id="screen-setup">
     <h1>Teste ta mémoire des couleurs.</h1>
     <p class="lede">Une teinte s'affiche brièvement. Une fois cachée, retrouve-la avec les deux curseurs — teinte et clarté — et obtiens ta note de précision.</p>
+    <div class="invite-hint hide" id="inviteHint">Tu as reçu un lien d'invitation — entre ton pseudo puis clique "Rejoindre" pour lancer la partie.</div>
     <div class="panel">
       <div class="field">
         <label for="roundsDisplay">Nombre de couleurs dans la série</label>
@@ -539,7 +580,7 @@
         </div>
         <div class="field-hint">En secondes, de 0.5 à 10 s.</div>
       </div>
-
+ 
       <div class="field">
         <label>Mode de jeu</label>
         <div class="mode-toggle">
@@ -547,12 +588,12 @@
           <button type="button" class="mode-btn" id="modeSessionBtn">Session à deux</button>
         </div>
       </div>
-
+ 
       <div class="field hide" id="pseudoField">
         <label for="pseudoInput">Ton pseudo</label>
         <input type="text" id="pseudoInput" class="text-input" maxlength="16" placeholder="ex. Raptor">
       </div>
-
+ 
       <div class="field hide" id="sessionActionsField">
         <div class="session-actions">
           <button type="button" class="btn-ghost" id="createSessionBtn">Créer une session (tu choisis les réglages ci-dessus)</button>
@@ -564,11 +605,12 @@
         </div>
         <div class="error-msg" id="setupErrorMsg"></div>
       </div>
-
+ 
       <button class="btn-main" id="startBtn">Démarrer la série</button>
+      <button type="button" class="history-link" id="historyLinkBtn">Voir mon historique de sessions</button>
     </div>
   </section>
-
+ 
   <!-- WAITING SCREEN -->
   <section id="screen-waiting" class="hide">
     <h1 id="waitingTitle">Session créée.</h1>
@@ -576,12 +618,19 @@
     <div class="panel" style="text-align:center;">
       <div class="hide" id="sessionCodeBlock">
         <div class="field-hint" style="margin-top:0;">Code de session</div>
-        <div class="session-code" id="sessionCodeDisplay">-----</div>
+        <div class="code-row">
+          <div class="session-code" id="sessionCodeDisplay">-----</div>
+          <button type="button" class="icon-btn" id="copyCodeBtn">📋 Copier</button>
+        </div>
+        <div class="share-link-row">
+          <button type="button" class="icon-btn" id="copyLinkBtn">🔗 Copier le lien d'invitation</button>
+        </div>
       </div>
       <div class="status-line active" id="waitingStatus">En attente…</div>
+      <div class="opponent-warning hide" id="opponentWarning">L'autre joueur semble déconnecté ou a fermé la page.</div>
     </div>
   </section>
-
+ 
   <!-- GAME SCREEN -->
   <section id="screen-game" class="hide">
     <h1 id="gameTitle">Couleur 1 / 5</h1>
@@ -593,7 +642,7 @@
           <div class="aperture" id="apertureMemorize"></div>
         </div>
       </div>
-
+ 
       <div class="sliders hide" id="sliderSection">
         <div class="slider-row">
           <div class="row-top">
@@ -613,7 +662,7 @@
       </div>
     </div>
   </section>
-
+ 
   <!-- RESULT SCREEN (per round) -->
   <section id="screen-result" class="hide">
     <h1>Résultat — Couleur <span id="resultIdx">1</span></h1>
@@ -623,7 +672,7 @@
         <div class="score-number"><span id="roundScoreVal">0.00</span><span class="over"> / 10</span></div>
         <div class="score-tag" id="scoreTag" style="color:var(--accent);">—</div>
       </div>
-
+ 
       <div class="compare-row">
         <div class="compare-swatch">
           <div class="sw" id="targetSwatch"></div>
@@ -634,7 +683,7 @@
           <div class="lbl">Ta réponse</div>
         </div>
       </div>
-
+ 
       <div class="err-grid">
         <div class="err-card">
           <div class="k">Écart teinte</div>
@@ -645,11 +694,11 @@
           <div class="v" id="lightErrVal">0%</div>
         </div>
       </div>
-
+ 
       <button class="btn-main" id="nextRoundBtn" style="margin-top:24px;">Couleur suivante</button>
     </div>
   </section>
-
+ 
   <!-- SUMMARY SCREEN (solo) -->
   <section id="screen-summary" class="hide">
     <h1>Série terminée.</h1>
@@ -663,7 +712,7 @@
       <button class="btn-main" id="replayBtn" style="margin-top:20px;">Refaire une série</button>
     </div>
   </section>
-
+ 
   <!-- COMPARE SCREEN (session) -->
   <section id="screen-compare" class="hide">
     <h1>Résultats de la session.</h1>
@@ -685,18 +734,33 @@
           <div class="num"><span id="compareTotalGuestVal">0.00</span></div>
         </div>
       </div>
-      <button class="btn-main" id="newSessionBtn" style="margin-top:20px;">Nouvelle session</button>
+      <div class="btn-row">
+        <button class="btn-main" id="rematchBtn">Revanche</button>
+        <button class="btn-ghost" id="newSessionBtn">Nouvelle session</button>
+      </div>
+      <div class="status-line hide" id="rematchStatus">En attente que l'adversaire accepte…</div>
     </div>
   </section>
-
+ 
+  <!-- HISTORY SCREEN -->
+  <section id="screen-history" class="hide">
+    <h1>Historique.</h1>
+    <p class="lede" id="historyLede">Tes dernières sessions à deux.</p>
+    <div class="panel">
+      <div id="historyList"><div class="history-empty">Chargement…</div></div>
+      <button class="btn-ghost" id="historyBackBtn" style="margin-top:20px;">Retour</button>
+    </div>
+  </section>
+ 
 </div>
-
+ 
 <script type="module">
   import { firebaseConfig } from './firebase-config.js';
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, serverTimestamp }
+  import { getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, serverTimestamp,
+    collection, addDoc, query, where, getDocs, Timestamp }
     from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
+ 
   let db = null;
   let firebaseReady = false;
   try {
@@ -706,15 +770,15 @@
   } catch (e) {
     console.error('Firebase init error', e);
   }
-
+ 
   const FIXED_SAT = 65;
-
+ 
   let totalRounds = 5;
   let colorDurationSec = 2;
   let currentRound = 0;
   let target = null;
   let results = [];
-
+ 
   let mode = 'solo';
   let pseudo = '';
   let sessionCode = null;
@@ -724,7 +788,11 @@
   let sessionUnsub = null;
   let lastSessionData = null;
   let waitingFor = null; // null | 'join' | 'results'
-
+  let heartbeatTimer = null;
+  let watchdogTimer = null;
+  let matchLogged = false;
+  let handledRematchCode = null;
+ 
   const screens = {
     setup: document.getElementById('screen-setup'),
     waiting: document.getElementById('screen-waiting'),
@@ -732,26 +800,27 @@
     result: document.getElementById('screen-result'),
     summary: document.getElementById('screen-summary'),
     compare: document.getElementById('screen-compare'),
+    history: document.getElementById('screen-history'),
   };
   const deviceSub = document.getElementById('deviceSub');
-
+ 
   function showScreen(name){
     Object.values(screens).forEach(s => s.classList.add('hide'));
     screens[name].classList.remove('hide');
   }
-
+ 
   function hsl(h,l,s){
     return `hsl(${h}, ${s !== undefined ? s : FIXED_SAT}%, ${l}%)`;
   }
-
+ 
   function escapeHtml(str){
     return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
-
+ 
   // ---- Rounds / duration fields ----
   const roundsDisplay = document.getElementById('roundsDisplay');
   const MIN_ROUNDS = 3, MAX_ROUNDS = 50;
-
+ 
   function setTotalRounds(n){
     if (isNaN(n)) n = totalRounds;
     n = Math.max(MIN_ROUNDS, Math.min(MAX_ROUNDS, Math.round(n)));
@@ -762,10 +831,10 @@
   document.getElementById('plusBtn').addEventListener('click', () => setTotalRounds(totalRounds + 1));
   roundsDisplay.addEventListener('change', () => setTotalRounds(parseInt(roundsDisplay.value, 10)));
   roundsDisplay.addEventListener('blur', () => setTotalRounds(parseInt(roundsDisplay.value, 10)));
-
+ 
   const durationDisplay = document.getElementById('durationDisplay');
   const MIN_DURATION = 0.5, MAX_DURATION = 10, DURATION_STEP = 0.5;
-
+ 
   function setDuration(n){
     if (isNaN(n)) n = colorDurationSec;
     n = Math.round(n / DURATION_STEP) * DURATION_STEP;
@@ -777,7 +846,7 @@
   document.getElementById('durationPlusBtn').addEventListener('click', () => setDuration(colorDurationSec + DURATION_STEP));
   durationDisplay.addEventListener('change', () => setDuration(parseFloat(durationDisplay.value)));
   durationDisplay.addEventListener('blur', () => setDuration(parseFloat(durationDisplay.value)));
-
+ 
   // ---- Mode toggle ----
   const modeSoloBtn = document.getElementById('modeSoloBtn');
   const modeSessionBtn = document.getElementById('modeSessionBtn');
@@ -787,7 +856,7 @@
   const joinCodeInput = document.getElementById('joinCodeInput');
   const setupErrorMsg = document.getElementById('setupErrorMsg');
   const startBtn = document.getElementById('startBtn');
-
+ 
   function setMode(m){
     mode = m;
     modeSoloBtn.classList.toggle('active', m === 'solo');
@@ -799,55 +868,73 @@
   }
   modeSoloBtn.addEventListener('click', () => setMode('solo'));
   modeSessionBtn.addEventListener('click', () => setMode('session'));
-
+ 
   function showSetupError(msg){ setupErrorMsg.textContent = msg; }
-
+ 
+  // ---- Lien d'invitation (?code=XXXXX) ----
+  (function handleInviteLink(){
+    const params = new URLSearchParams(window.location.search);
+    const invitedCode = params.get('code');
+    if (invitedCode){
+      setMode('session');
+      joinCodeInput.value = invitedCode.trim().toUpperCase();
+      document.getElementById('inviteHint').classList.remove('hide');
+      pseudoInput.focus();
+    }
+  })();
+ 
   function generateSessionCode(){
     const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // sans 0/O ni 1/I pour éviter les confusions
     let code = '';
     for (let i = 0; i < 5; i++) code += chars[Math.floor(Math.random() * chars.length)];
     return code;
   }
-
+ 
   document.getElementById('startBtn').addEventListener('click', () => {
     results = [];
     currentRound = 0;
     deviceSub.textContent = 'Mode — Série en cours';
     nextRound();
   });
-
+ 
   document.getElementById('createSessionBtn').addEventListener('click', async () => {
     if (!firebaseReady){ showSetupError('Firebase non configuré — complète firebase-config.js.'); return; }
     const p = pseudoInput.value.trim();
     if (!p){ showSetupError('Entre un pseudo avant de créer une session.'); return; }
     pseudo = p;
-
+ 
     const colors = [];
     for (let i = 0; i < totalRounds; i++) colors.push(randTarget());
     const code = generateSessionCode();
-
+ 
     try {
       await setDoc(doc(db, 'sessions', code), {
         createdAt: serverTimestamp(),
+        expiresAt: Timestamp.fromDate(new Date(Date.now() + 24 * 60 * 60 * 1000)), // purge auto après 24h (TTL Firestore)
         rounds: totalRounds,
         durationSec: colorDurationSec,
         colors,
         hostPseudo: pseudo,
         guestPseudo: null,
         hostResults: null,
-        guestResults: null
+        guestResults: null,
+        hostLastSeen: serverTimestamp(),
+        guestLastSeen: null,
+        rematchCode: null
       });
     } catch (e) {
       console.error(e);
       showSetupError("Impossible de créer la session — vérifie ta config Firebase et tes règles Firestore.");
       return;
     }
-
+ 
     isHost = true;
     sessionCode = code;
     sessionColors = colors;
     waitingFor = 'join';
-
+    matchLogged = false;
+    handledRematchCode = null;
+ 
     document.getElementById('waitingTitle').textContent = 'Session créée.';
     document.getElementById('waitingLede').textContent = "Partage ce code avec l'autre joueur pour qu'il puisse rejoindre.";
     document.getElementById('sessionCodeBlock').classList.remove('hide');
@@ -856,8 +943,9 @@
     deviceSub.textContent = 'Mode — Session : en attente';
     showScreen('waiting');
     listenToSession(code);
+    startHeartbeat();
   });
-
+ 
   document.getElementById('joinSessionBtn').addEventListener('click', async () => {
     if (!firebaseReady){ showSetupError('Firebase non configuré — complète firebase-config.js.'); return; }
     const p = pseudoInput.value.trim();
@@ -865,7 +953,7 @@
     if (!p){ showSetupError('Entre un pseudo avant de rejoindre.'); return; }
     if (!code){ showSetupError('Entre un code de session.'); return; }
     pseudo = p;
-
+ 
     let snap;
     try {
       snap = await getDoc(doc(db, 'sessions', code));
@@ -877,33 +965,69 @@
     if (!snap.exists()){ showSetupError('Code introuvable.'); return; }
     const data = snap.data();
     if (data.guestPseudo){ showSetupError('Cette session est déjà complète.'); return; }
-
+ 
     try {
-      await updateDoc(doc(db, 'sessions', code), { guestPseudo: pseudo });
+      await updateDoc(doc(db, 'sessions', code), { guestPseudo: pseudo, guestLastSeen: serverTimestamp() });
     } catch (e) {
       console.error(e);
       showSetupError('Impossible de rejoindre — vérifie tes règles Firestore.');
       return;
     }
-
+ 
     isHost = false;
     sessionCode = code;
     sessionColors = data.colors;
     totalRounds = data.rounds;
     colorDurationSec = data.durationSec;
     opponentPseudo = data.hostPseudo;
-
+    matchLogged = false;
+    handledRematchCode = null;
+ 
     listenToSession(code);
+    startHeartbeat();
     beginSessionGame();
   });
-
+ 
+  // ---- Heartbeat (détection de déconnexion) ----
+  function startHeartbeat(){
+    stopHeartbeat();
+    heartbeatTimer = setInterval(() => {
+      if (!sessionCode) return;
+      const field = isHost ? 'hostLastSeen' : 'guestLastSeen';
+      updateDoc(doc(db, 'sessions', sessionCode), { [field]: serverTimestamp() }).catch(() => {});
+    }, 8000);
+    watchdogTimer = setInterval(checkOpponentAlive, 5000);
+  }
+  function stopHeartbeat(){
+    if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
+    if (watchdogTimer) { clearInterval(watchdogTimer); watchdogTimer = null; }
+  }
+  function checkOpponentAlive(){
+    const warningEl = document.getElementById('opponentWarning');
+    if (!lastSessionData || !warningEl){ return; }
+    // On ne prévient que pendant les phases d'attente (join ou résultats).
+    if (!waitingFor){ warningEl.classList.add('hide'); return; }
+    const oppKey = isHost ? 'guestLastSeen' : 'hostLastSeen';
+    const oppTs = lastSessionData[oppKey];
+    if (waitingFor === 'join'){
+      // Pas encore de guest — rien à surveiller.
+      warningEl.classList.add('hide');
+      return;
+    }
+    if (!oppTs){ warningEl.classList.add('hide'); return; }
+    const lastSeenMs = oppTs.toMillis ? oppTs.toMillis() : oppTs.seconds * 1000;
+    const staleFor = Date.now() - lastSeenMs;
+    warningEl.classList.toggle('hide', staleFor <= 20000);
+  }
+ 
   function listenToSession(code){
     if (sessionUnsub) sessionUnsub();
     sessionUnsub = onSnapshot(doc(db, 'sessions', code), (snap) => {
       if (!snap.exists()) return;
       const data = snap.data();
       lastSessionData = data;
-
+      checkOpponentAlive();
+ 
       if (waitingFor === 'join' && data.guestPseudo){
         opponentPseudo = data.guestPseudo;
         waitingFor = null;
@@ -915,16 +1039,48 @@
           renderCompare(data);
         }
       }
+ 
+      // Revanche proposée par l'adversaire sur CETTE session → on rejoint automatiquement.
+      if (data.rematchCode && data.rematchCode !== handledRematchCode && data.rematchCode !== sessionCode){
+        handledRematchCode = data.rematchCode;
+        autoJoinRematch(data.rematchCode);
+      }
     });
   }
-
+ 
+  async function autoJoinRematch(newCode){
+    let snap;
+    try {
+      snap = await getDoc(doc(db, 'sessions', newCode));
+    } catch (e) { console.error(e); return; }
+    if (!snap.exists()) return;
+    const data = snap.data();
+ 
+    try {
+      await updateDoc(doc(db, 'sessions', newCode), { guestPseudo: pseudo, guestLastSeen: serverTimestamp() });
+    } catch (e) { console.error(e); return; }
+ 
+    isHost = false;
+    sessionCode = newCode;
+    sessionColors = data.colors;
+    totalRounds = data.rounds;
+    colorDurationSec = data.durationSec;
+    opponentPseudo = data.hostPseudo;
+    matchLogged = false;
+    handledRematchCode = null;
+ 
+    listenToSession(newCode);
+    startHeartbeat();
+    beginSessionGame();
+  }
+ 
   function beginSessionGame(){
     results = [];
     currentRound = 0;
     deviceSub.textContent = 'Mode — vs ' + (opponentPseudo || '?');
     nextRound();
   }
-
+ 
   // ---- Game screen ----
   const gameTitle = document.getElementById('gameTitle');
   const statusLine = document.getElementById('statusLine');
@@ -935,14 +1091,14 @@
   const hueVal = document.getElementById('hueVal');
   const lightVal = document.getElementById('lightVal');
   const submitGuessBtn = document.getElementById('submitGuessBtn');
-
+ 
   function randTarget(){
     return {
       hue: Math.floor(Math.random() * 361),
       light: Math.floor(Math.random() * 71) + 15
     };
   }
-
+ 
   function updateGuessPreview(){
     const h = parseInt(hueSlider.value, 10);
     const l = parseInt(lightSlider.value, 10);
@@ -953,7 +1109,7 @@
   }
   hueSlider.addEventListener('input', updateGuessPreview);
   lightSlider.addEventListener('input', updateGuessPreview);
-
+ 
   function nextRound(){
     currentRound++;
     if (currentRound > totalRounds){
@@ -963,41 +1119,41 @@
     }
     gameTitle.textContent = `Couleur ${currentRound} / ${totalRounds}`;
     target = (mode === 'session') ? sessionColors[currentRound - 1] : randTarget();
-
+ 
     sliderSection.classList.add('hide');
     statusLine.textContent = 'Mémorisation';
     statusLine.classList.add('active');
     apertureMemorize.classList.remove('hidden-swatch');
     apertureMemorize.style.backgroundColor = hsl(target.hue, target.light);
-
+ 
     showScreen('game');
-
+ 
     setTimeout(() => {
       apertureMemorize.classList.remove('hidden-swatch');
       statusLine.textContent = 'À toi de jouer';
       statusLine.classList.remove('active');
-
+ 
       hueSlider.value = 180;
       lightSlider.value = 50;
       updateGuessPreview();
       sliderSection.classList.remove('hide');
     }, colorDurationSec * 1000);
   }
-
+ 
   function computeScore(target, guessHue, guessLight){
     let hueDiff = Math.abs(target.hue - guessHue);
     if (hueDiff > 180) hueDiff = 360 - hueDiff;
     const lightDiff = Math.abs(target.light - guessLight);
-
-    const hueFactor = 1 - Math.pow(hueDiff / 180, 0.75);
-    const lightFactor = 1 - Math.pow(lightDiff / 100, 0.85);
-
+ 
+    const hueFactor = 1 - Math.pow(hueDiff / 180, 0.82);
+    const lightFactor = 1 - Math.pow(lightDiff / 100, 0.92);
+ 
     let score = 10 * hueFactor * lightFactor;
     score = Math.max(0, Math.min(10, score));
     score = Math.round(score * 100) / 100;
     return { score, hueDiff, lightDiff };
   }
-
+ 
   const resultIdx = document.getElementById('resultIdx');
   const resultTag = document.getElementById('resultTag');
   const roundScoreVal = document.getElementById('roundScoreVal');
@@ -1006,7 +1162,7 @@
   const guessSwatch = document.getElementById('guessSwatch');
   const hueErrVal = document.getElementById('hueErrVal');
   const lightErrVal = document.getElementById('lightErrVal');
-
+ 
   function tagFor(score){
     if (score >= 9) return { text: 'Œil de lynx', color: 'var(--accent)' };
     if (score >= 7) return { text: 'Très précis', color: 'var(--accent)' };
@@ -1014,36 +1170,36 @@
     if (score >= 3) return { text: 'Approximatif', color: 'var(--amber)' };
     return { text: 'À revoir', color: 'var(--red)' };
   }
-
+ 
   submitGuessBtn.addEventListener('click', () => {
     const guessHue = parseInt(hueSlider.value, 10);
     const guessLight = parseInt(lightSlider.value, 10);
     const { score, hueDiff, lightDiff } = computeScore(target, guessHue, guessLight);
-
+ 
     results.push({ hue: target.hue, light: target.light, guessHue, guessLight, score, hueDiff, lightDiff });
-
+ 
     resultIdx.textContent = currentRound;
     roundScoreVal.textContent = score.toFixed(2);
     const t = tagFor(score);
     scoreTag.textContent = t.text;
     scoreTag.style.color = t.color;
     resultTag.textContent = 'Écart total pondéré converti sur 10 points.';
-
+ 
     targetSwatch.style.backgroundColor = hsl(target.hue, target.light);
     guessSwatch.style.backgroundColor = hsl(guessHue, guessLight);
     hueErrVal.textContent = Math.round(hueDiff) + '°';
     lightErrVal.textContent = Math.round(lightDiff) + '%';
-
+ 
     showScreen('result');
   });
-
+ 
   document.getElementById('nextRoundBtn').addEventListener('click', () => nextRound());
-
+ 
   // ---- Summary (solo) ----
   const roundList = document.getElementById('roundList');
   const totalScoreVal = document.getElementById('totalScoreVal');
   const totalOverVal = document.getElementById('totalOverVal');
-
+ 
   function renderSummary(){
     deviceSub.textContent = 'Mode — Bilan';
     roundList.innerHTML = '';
@@ -1063,24 +1219,24 @@
     totalScoreVal.textContent = sum.toFixed(2);
     totalOverVal.textContent = ' / ' + (totalRounds * 10).toFixed(0);
   }
-
+ 
   document.getElementById('replayBtn').addEventListener('click', () => {
     deviceSub.textContent = 'Mode — Étalonnage';
     showScreen('setup');
   });
-
+ 
   // ---- Session finish + compare ----
   async function finishSessionSeries(){
     const total = Math.round(results.reduce((s, r) => s + r.score, 0) * 100) / 100;
     const payload = { scores: results.map(r => r.score), total, finishedAt: serverTimestamp() };
     const field = isHost ? 'hostResults' : 'guestResults';
-
+ 
     try {
       await updateDoc(doc(db, 'sessions', sessionCode), { [field]: payload });
     } catch (e) {
       console.error(e);
     }
-
+ 
     const oppKey = isHost ? 'guestResults' : 'hostResults';
     if (lastSessionData && lastSessionData[oppKey]){
       renderCompare({ ...lastSessionData, [field]: payload });
@@ -1094,25 +1250,45 @@
       showScreen('waiting');
     }
   }
-
+ 
+  async function logMatchToHistory(data){
+    if (matchLogged || !isHost) return; // seul l'hôte écrit, pour éviter les doublons
+    if (!data.hostResults || !data.guestResults) return;
+    matchLogged = true;
+    try {
+      await addDoc(collection(db, 'matches'), {
+        sessionCode,
+        hostPseudo: data.hostPseudo,
+        guestPseudo: data.guestPseudo,
+        hostTotal: data.hostResults.total,
+        guestTotal: data.guestResults.total,
+        rounds: totalRounds,
+        playedAt: serverTimestamp()
+      });
+    } catch (e) {
+      console.error('Impossible d\'enregistrer dans l\'historique', e);
+    }
+  }
+ 
   function renderCompare(data){
     deviceSub.textContent = 'Mode — Comparaison';
+    logMatchToHistory(data);
     const hostName = data.hostPseudo || 'Joueur 1';
     const guestName = data.guestPseudo || 'Joueur 2';
     const meIsHost = isHost;
     const myName = meIsHost ? hostName : guestName;
     const oppName = meIsHost ? guestName : hostName;
-
+ 
     document.getElementById('compareHeadNames').innerHTML =
       `<span class="idxcol"></span><span class="col">${escapeHtml(myName)}</span><span class="col">${escapeHtml(oppName)}</span>`;
-
+ 
     const hostScores = data.hostResults ? data.hostResults.scores : [];
     const guestScores = data.guestResults ? data.guestResults.scores : [];
     const myScores = meIsHost ? hostScores : guestScores;
     const oppScores = meIsHost ? guestScores : hostScores;
     const myTotal = (meIsHost ? data.hostResults : data.guestResults)?.total || 0;
     const oppTotal = (meIsHost ? data.guestResults : data.hostResults)?.total || 0;
-
+ 
     const list = document.getElementById('compareRoundList');
     list.innerHTML = '';
     const n = Math.max(myScores.length, oppScores.length);
@@ -1126,30 +1302,185 @@
       item.innerHTML = `<span class="idx">#${i+1}</span><span class="col${myWin?' win':''}">${ms}</span><span class="col${oppWin?' win':''}">${os}</span>`;
       list.appendChild(item);
     }
-
+ 
     document.getElementById('compareTotalHostName').textContent = myName;
     document.getElementById('compareTotalGuestName').textContent = oppName;
     document.getElementById('compareTotalHostVal').textContent = myTotal.toFixed(2);
     document.getElementById('compareTotalGuestVal').textContent = oppTotal.toFixed(2);
     document.getElementById('compareTotalHostSide').classList.toggle('winner', myTotal > oppTotal);
     document.getElementById('compareTotalGuestSide').classList.toggle('winner', oppTotal > myTotal);
-
+ 
     showScreen('compare');
   }
-
+ 
   document.getElementById('newSessionBtn').addEventListener('click', () => {
+    stopHeartbeat();
     if (sessionUnsub) { sessionUnsub(); sessionUnsub = null; }
     mode = 'solo';
     sessionCode = null; isHost = false; sessionColors = []; opponentPseudo = null;
-    lastSessionData = null; waitingFor = null;
+    lastSessionData = null; waitingFor = null; handledRematchCode = null;
     pseudoInput.value = ''; joinCodeInput.value = '';
     setMode('solo');
     deviceSub.textContent = 'Mode — Étalonnage';
     showScreen('setup');
   });
-
+ 
+  document.getElementById('rematchBtn').addEventListener('click', async () => {
+    if (!firebaseReady || !sessionCode) return;
+    const rematchBtn = document.getElementById('rematchBtn');
+    rematchBtn.disabled = true;
+    document.getElementById('rematchStatus').classList.remove('hide');
+ 
+    const colors = [];
+    for (let i = 0; i < totalRounds; i++) colors.push(randTarget());
+    const newCode = generateSessionCode();
+    const myPseudo = pseudo;
+    const oppPseudo = opponentPseudo;
+ 
+    try {
+      await setDoc(doc(db, 'sessions', newCode), {
+        createdAt: serverTimestamp(),
+        expiresAt: Timestamp.fromDate(new Date(Date.now() + 24 * 60 * 60 * 1000)),
+        rounds: totalRounds,
+        durationSec: colorDurationSec,
+        colors,
+        hostPseudo: myPseudo,
+        guestPseudo: null,
+        hostResults: null,
+        guestResults: null,
+        hostLastSeen: serverTimestamp(),
+        guestLastSeen: null,
+        rematchCode: null
+      });
+      // On prévient l'adversaire (encore sur l'ancienne session) du nouveau code.
+      await updateDoc(doc(db, 'sessions', sessionCode), { rematchCode: newCode });
+    } catch (e) {
+      console.error(e);
+      rematchBtn.disabled = false;
+      document.getElementById('rematchStatus').classList.add('hide');
+      return;
+    }
+ 
+    isHost = true;
+    sessionCode = newCode;
+    sessionColors = colors;
+    opponentPseudo = oppPseudo;
+    waitingFor = 'join';
+    matchLogged = false;
+    handledRematchCode = null;
+ 
+    document.getElementById('waitingTitle').textContent = 'Revanche lancée.';
+    document.getElementById('waitingLede').textContent = "L'autre joueur va être rejoint automatiquement — pas besoin de renvoyer le code.";
+    document.getElementById('sessionCodeBlock').classList.remove('hide');
+    document.getElementById('sessionCodeDisplay').textContent = newCode;
+    document.getElementById('waitingStatus').textContent = "En attente de l'autre joueur…";
+    deviceSub.textContent = 'Mode — Session : en attente';
+    rematchBtn.disabled = false;
+    document.getElementById('rematchStatus').classList.add('hide');
+    showScreen('waiting');
+    listenToSession(newCode);
+    startHeartbeat();
+  });
+ 
+  // ---- Copier code / lien d'invitation ----
+  function flashCopied(btn, originalText){
+    btn.classList.add('copied');
+    const prev = btn.textContent;
+    btn.textContent = '✓ Copié !';
+    setTimeout(() => { btn.classList.remove('copied'); btn.textContent = prev; }, 1800);
+  }
+  async function copyText(text){
+    try {
+      await navigator.clipboard.writeText(text);
+      return true;
+    } catch (e) {
+      // Fallback pour navigateurs / contextes sans permission clipboard
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (e2) { /* ignore */ }
+      document.body.removeChild(ta);
+      return true;
+    }
+  }
+  document.getElementById('copyCodeBtn').addEventListener('click', async (e) => {
+    if (!sessionCode) return;
+    await copyText(sessionCode);
+    flashCopied(e.currentTarget);
+  });
+  document.getElementById('copyLinkBtn').addEventListener('click', async (e) => {
+    if (!sessionCode) return;
+    const link = `${window.location.origin}${window.location.pathname}?code=${sessionCode}`;
+    await copyText(link);
+    flashCopied(e.currentTarget);
+  });
+ 
+  // ---- Historique des sessions ----
+  document.getElementById('historyLinkBtn').addEventListener('click', () => {
+    const p = pseudoInput.value.trim();
+    if (!p){ showSetupError('Entre ton pseudo pour voir ton historique.'); return; }
+    loadHistory(p);
+  });
+  document.getElementById('historyBackBtn').addEventListener('click', () => {
+    showScreen('setup');
+  });
+ 
+  async function loadHistory(p){
+    document.getElementById('historyLede').textContent = `Sessions jouées par "${p}".`;
+    const list = document.getElementById('historyList');
+    list.innerHTML = '<div class="history-empty">Chargement…</div>';
+    showScreen('history');
+ 
+    if (!firebaseReady){ list.innerHTML = '<div class="history-empty">Firebase non configuré.</div>'; return; }
+ 
+    try {
+      const [asHost, asGuest] = await Promise.all([
+        getDocs(query(collection(db, 'matches'), where('hostPseudo', '==', p))),
+        getDocs(query(collection(db, 'matches'), where('guestPseudo', '==', p)))
+      ]);
+      const matches = [];
+      asHost.forEach(d => matches.push({ id: d.id, ...d.data(), meIsHost: true }));
+      asGuest.forEach(d => matches.push({ id: d.id, ...d.data(), meIsHost: false }));
+      matches.sort((a, b) => {
+        const ta = a.playedAt ? (a.playedAt.toMillis ? a.playedAt.toMillis() : 0) : 0;
+        const tb = b.playedAt ? (b.playedAt.toMillis ? b.playedAt.toMillis() : 0) : 0;
+        return tb - ta;
+      });
+ 
+      if (matches.length === 0){
+        list.innerHTML = '<div class="history-empty">Aucune session jouée pour l\'instant.</div>';
+        return;
+      }
+ 
+      list.innerHTML = '';
+      matches.slice(0, 25).forEach(m => {
+        const oppName = m.meIsHost ? m.guestPseudo : m.hostPseudo;
+        const myTotal = m.meIsHost ? m.hostTotal : m.guestTotal;
+        const oppTotal = m.meIsHost ? m.guestTotal : m.hostTotal;
+        let res = 'draw', resTxt = '=';
+        if (myTotal > oppTotal){ res = 'win'; resTxt = 'V'; }
+        else if (myTotal < oppTotal){ res = 'loss'; resTxt = 'D'; }
+        const item = document.createElement('div');
+        item.className = 'history-item';
+        item.innerHTML = `
+          <span class="res ${res}">${resTxt}</span>
+          <span class="opp">vs ${escapeHtml(oppName || '?')}</span>
+          <span class="sc">${(myTotal || 0).toFixed(2)} – ${(oppTotal || 0).toFixed(2)}</span>
+        `;
+        list.appendChild(item);
+      });
+    } catch (e) {
+      console.error(e);
+      list.innerHTML = '<div class="history-empty">Impossible de charger l\'historique.</div>';
+    }
+  }
+ 
   // init preview
   updateGuessPreview();
 </script>
 </body>
 </html>
+ 

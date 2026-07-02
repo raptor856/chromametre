@@ -1,3 +1,4 @@
+hromametre · HTML
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,8 +16,8 @@
     --line: #2a2f36;
     --text: #eef1f3;
     --text-dim: #7d848c;
-    --accent: #7cffb2;
-    --accent-dim: #3a5f4c;
+    --accent: #ff8fd6;
+    --accent-dim: #6a3a58;
     --amber: #ffb454;
     --red: #ff6b6b;
     --mono: 'JetBrains Mono', monospace;
@@ -26,7 +27,7 @@
   html,body{
     margin:0; padding:0; min-height:100%;
     background:
-      radial-gradient(ellipse 900px 500px at 50% -10%, #1a2a22 0%, transparent 60%),
+      radial-gradient(ellipse 900px 500px at 50% -10%, #2a1a24 0%, transparent 60%),
       var(--bg);
     color:var(--text);
     font-family:var(--display);
@@ -739,14 +740,14 @@
       <div class="round-list" id="leaderboardGlobalList"></div>
  
       <div class="field" style="margin-top:8px;">
-        <label for="h2hInput1">Face-à-face — Pseudo 1</label>
+        <label for="h2hInput1">Rechercher un pseudo</label>
         <input type="text" class="text-input" id="h2hInput1" placeholder="ex. Raptor">
       </div>
       <div class="field">
-        <label for="h2hInput2">Face-à-face — Pseudo 2</label>
-        <input type="text" class="text-input" id="h2hInput2" placeholder="ex. Nova">
+        <label for="h2hInput2">Comparer à un pseudo précis (optionnel)</label>
+        <input type="text" class="text-input" id="h2hInput2" placeholder="ex. Nova — laisse vide pour voir tous ses adversaires">
       </div>
-      <button class="btn-main" id="h2hSearchBtn">Comparer</button>
+      <button class="btn-main" id="h2hSearchBtn">Rechercher</button>
       <div id="h2hResult" style="margin-top:16px;"></div>
  
       <button class="btn-ghost" id="historyBackBtn" style="margin-top:20px;">Retour</button>
@@ -1485,31 +1486,75 @@
     const p1 = document.getElementById('h2hInput1').value.trim();
     const p2 = document.getElementById('h2hInput2').value.trim();
     const out = document.getElementById('h2hResult');
-    if (!p1 || !p2){ out.innerHTML = '<div class="field-hint">Entre les deux pseudos.</div>'; return; }
+    if (!p1){ out.innerHTML = '<div class="field-hint">Entre au moins un pseudo.</div>'; return; }
     out.innerHTML = '<div class="field-hint">Recherche…</div>';
     try {
-      const qy = query(collection(db, 'history'), where('pseudoList', 'array-contains', p1.toLowerCase()), limit(100));
+      const qy = query(collection(db, 'history'), where('pseudoList', 'array-contains', p1.toLowerCase()), limit(200));
       const snaps = await getDocs(qy);
-      let p1wins = 0, p2wins = 0, games = 0;
+ 
+      if (p2){
+        // Comparaison ciblée entre p1 et p2
+        let p1wins = 0, p2wins = 0, games = 0;
+        snaps.forEach(s => {
+          const d = s.data();
+          if (!d.pseudoList.includes(p2.toLowerCase())) return;
+          const e1 = d.players.find(pp => pp.pseudo.toLowerCase() === p1.toLowerCase());
+          const e2 = d.players.find(pp => pp.pseudo.toLowerCase() === p2.toLowerCase());
+          if (e1 && e2){
+            games++;
+            if (e1.total > e2.total) p1wins++;
+            else if (e2.total > e1.total) p2wins++;
+          }
+        });
+        if (games === 0){ out.innerHTML = '<div class="field-hint">Aucune partie trouvée entre ces deux pseudos.</div>'; return; }
+        out.innerHTML = `
+          <div class="totals-compare">
+            <div class="side ${p1wins > p2wins ? 'winner' : ''}"><div class="name">${escapeHtml(p1)}</div><div class="num">${p1wins}</div></div>
+            <div class="side ${p2wins > p1wins ? 'winner' : ''}"><div class="name">${escapeHtml(p2)}</div><div class="num">${p2wins}</div></div>
+          </div>
+          <div class="field-hint" style="margin-top:10px;">${games} partie(s) jouée(s) ensemble.</div>
+        `;
+        return;
+      }
+ 
+      // Un seul pseudo : agrégation contre tous les adversaires rencontrés
+      if (snaps.empty){ out.innerHTML = '<div class="field-hint">Aucune partie trouvée pour ce pseudo.</div>'; return; }
+      const oppStats = {}; // key: pseudo affiché en minuscule -> {display, games, wins, losses}
+      let totalGames = 0, totalWins = 0;
       snaps.forEach(s => {
         const d = s.data();
-        if (!d.pseudoList.includes(p2.toLowerCase())) return;
-        const e1 = d.players.find(pp => pp.pseudo.toLowerCase() === p1.toLowerCase());
-        const e2 = d.players.find(pp => pp.pseudo.toLowerCase() === p2.toLowerCase());
-        if (e1 && e2){
-          games++;
-          if (e1.total > e2.total) p1wins++;
-          else if (e2.total > e1.total) p2wins++;
-        }
+        const me = d.players.find(pp => pp.pseudo.toLowerCase() === p1.toLowerCase());
+        if (!me) return;
+        const opponents = d.players.filter(pp => pp.pseudo.toLowerCase() !== p1.toLowerCase());
+        if (opponents.length === 0) return;
+        totalGames++;
+        const iWon = me.rank === 1;
+        if (iWon) totalWins++;
+        opponents.forEach(opp => {
+          const key = opp.pseudo.toLowerCase();
+          if (!oppStats[key]) oppStats[key] = { display: opp.pseudo, games: 0, wins: 0, losses: 0 };
+          oppStats[key].games++;
+          if (me.total > opp.total) oppStats[key].wins++;
+          else if (opp.total > me.total) oppStats[key].losses++;
+        });
       });
-      if (games === 0){ out.innerHTML = '<div class="field-hint">Aucune partie trouvée entre ces deux pseudos.</div>'; return; }
-      out.innerHTML = `
-        <div class="totals-compare">
-          <div class="side ${p1wins > p2wins ? 'winner' : ''}"><div class="name">${escapeHtml(p1)}</div><div class="num">${p1wins}</div></div>
-          <div class="side ${p2wins > p1wins ? 'winner' : ''}"><div class="name">${escapeHtml(p2)}</div><div class="num">${p2wins}</div></div>
-        </div>
-        <div class="field-hint" style="margin-top:10px;">${games} partie(s) jouée(s) ensemble.</div>
+      if (totalGames === 0){ out.innerHTML = '<div class="field-hint">Aucune partie trouvée pour ce pseudo.</div>'; return; }
+ 
+      const rows = Object.values(oppStats).sort((a, b) => b.games - a.games);
+      let html = `
+        <div class="field-hint" style="margin-top:0;">${escapeHtml(p1)} — ${totalWins} victoire(s) sur ${totalGames} partie(s)</div>
+        <div class="round-list" style="margin-top:10px;">
       `;
+      rows.forEach(r => {
+        html += `
+          <div class="round-item">
+            <span class="pname" style="flex:1;">${escapeHtml(r.display)}</span>
+            <span class="sc">${r.wins}V — ${r.losses}D (${r.games})</span>
+          </div>
+        `;
+      });
+      html += '</div>';
+      out.innerHTML = html;
     } catch (e) {
       console.error(e);
       out.innerHTML = '<div class="field-hint">Erreur pendant la recherche (vérifie tes règles Firestore).</div>';
@@ -1543,3 +1588,4 @@
 </script>
 </body>
 </html>
+ 

@@ -15,9 +15,10 @@
     --line: #2a2f36;
     --text: #eef1f3;
     --text-dim: #7d848c;
-    --accent: #ff8fd6;
-    --accent-dim: #6a3a58;
+    --accent: #7cffb2;
+    --accent-dim: #3a5f4c;
     --amber: #ffb454;
+    --pink: #ff7ac6;
     --red: #ff6b6b;
     --mono: 'JetBrains Mono', monospace;
     --display: 'Space Grotesk', sans-serif;
@@ -26,7 +27,7 @@
   html,body{
     margin:0; padding:0; min-height:100%;
     background:
-      radial-gradient(ellipse 900px 500px at 50% -10%, #2a1a24 0%, transparent 60%),
+      radial-gradient(ellipse 900px 500px at 50% -10%, #1a2a22 0%, transparent 60%),
       var(--bg);
     color:var(--text);
     font-family:var(--display);
@@ -246,57 +247,6 @@
     min-height:16px;
   }
  
-  /* Presence banner */
-  .presence-note{
-    font-family:var(--mono);
-    font-size:11px;
-    color:var(--amber);
-    background:rgba(255,180,84,0.08);
-    border:1px solid rgba(255,180,84,0.3);
-    border-radius:8px;
-    padding:9px 12px;
-    margin:-12px 0 22px;
-    text-align:center;
-    line-height:1.5;
-  }
- 
-  /* Code / link sharing */
-  .code-row{ display:flex; align-items:center; justify-content:center; gap:10px; }
-  .icon-btn{
-    width:38px; height:38px;
-    border-radius:8px;
-    border:1px solid var(--line);
-    background:var(--panel-2);
-    color:var(--text);
-    font-size:16px;
-    cursor:pointer;
-    transition:border-color .15s, color .15s;
-    flex-shrink:0;
-  }
-  .icon-btn:hover{ border-color:var(--accent); }
-  .icon-btn.copied{ border-color:var(--accent); color:var(--accent); }
-  .share-link-row{ display:flex; gap:8px; margin-top:14px; }
-  .share-link-row .text-input{ font-size:11px; }
- 
-  /* Player list */
-  .player-list{ display:flex; flex-direction:column; gap:8px; margin:18px 0; }
-  .player-row{
-    display:flex; align-items:center; gap:10px;
-    padding:10px 12px;
-    background:var(--panel-2);
-    border:1px solid var(--line);
-    border-radius:8px;
-    font-family:var(--mono);
-    font-size:13px;
-  }
-  .player-row .dot{ font-size:9px; }
-  .host-tag{
-    font-size:9px; color:var(--accent);
-    border:1px solid var(--accent-dim);
-    border-radius:4px; padding:1px 5px; margin-left:6px;
-    letter-spacing:.05em; text-transform:uppercase;
-  }
- 
   /* Aperture / swatch */
   .stage{
     display:flex; flex-direction:column; align-items:center;
@@ -329,6 +279,7 @@
     height:16px;
   }
   .status-line.active{ color:var(--accent); }
+  .status-line.pending{ color:var(--pink); }
  
   /* Sliders */
   .sliders{ margin-top:8px; }
@@ -451,7 +402,7 @@
     font-weight:700;
   }
  
-  /* Summary / round & leaderboard lists */
+  /* Summary */
   .round-list{
     display:flex; flex-direction:column; gap:8px;
     margin:20px 0 24px;
@@ -465,15 +416,13 @@
     font-family:var(--mono);
     font-size:13px;
   }
-  .round-item.leaderboard-winner{ border-color:var(--accent); }
   .round-item .chip{
     width:22px; height:22px;
     border-radius:5px;
     border:1px solid var(--line);
     flex-shrink:0;
   }
-  .round-item .idx{ color:var(--text-dim); width:22px; flex-shrink:0; }
-  .round-item .pname{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .round-item .idx{ color:var(--text-dim); width:22px; }
   .round-item .bar-track{
     flex:1;
     height:6px;
@@ -485,7 +434,7 @@
     height:100%;
     background:var(--accent);
   }
-  .round-item .sc{ width:auto; min-width:52px; text-align:right; flex-shrink:0; }
+  .round-item .sc{ width:52px; text-align:right; }
  
   .total-block{
     text-align:center;
@@ -512,6 +461,28 @@
     font-weight:500;
   }
  
+  /* Session compare table */
+  .compare-table{ margin:16px 0 24px; }
+  .compare-table .head{
+    display:flex; gap:10px;
+    font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-dim);
+    padding:0 12px 8px;
+  }
+  .compare-table .head .idxcol{ width:24px; }
+  .compare-table .head .col{ flex:1; text-align:center; }
+  .compare-row-item{
+    display:flex; align-items:center; gap:10px;
+    padding:10px 12px;
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-family:var(--mono);
+    font-size:13px;
+    margin-bottom:8px;
+  }
+  .compare-row-item .idx{ width:24px; color:var(--text-dim); }
+  .compare-row-item .col{ flex:1; text-align:center; }
+  .compare-row-item .col.win{ color:var(--accent); font-weight:700; }
   .totals-compare{ display:flex; gap:14px; }
   .totals-compare .side{
     flex:1; text-align:center;
@@ -525,6 +496,103 @@
   .totals-compare .side.winner{ border-color:var(--accent); }
   .totals-compare .side.winner .num{ color:var(--accent); }
  
+  /* Split aperture (2 colors per round) */
+  .aperture-split{
+    display:flex;
+    padding:0;
+    overflow:hidden;
+  }
+  .aperture-split .split-half{
+    flex:1;
+    height:100%;
+  }
+  .aperture-split .split-half + .split-half{
+    border-left:1px solid rgba(0,0,0,0.35);
+  }
+ 
+  /* Colors-per-round toggle (reuses mode-toggle look) */
+  .field-note{
+    font-family:var(--mono);
+    font-size:11px;
+    color:var(--text-dim);
+    margin-top:8px;
+    letter-spacing:0.03em;
+    line-height:1.5;
+  }
+ 
+  .slider-group-title{
+    font-family:var(--mono);
+    font-size:10px;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:18px 0 12px;
+    padding-top:14px;
+    border-top:1px dashed var(--line);
+  }
+  .slider-group-title:first-child{ margin-top:0; padding-top:0; border-top:none; }
+ 
+  /* Top nav links */
+  .nav-links{
+    display:flex; gap:10px;
+    margin-bottom:18px;
+  }
+  .nav-link{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    background:transparent;
+    border:1px solid var(--line);
+    border-radius:8px;
+    padding:8px 12px;
+    cursor:pointer;
+    transition:border-color .15s, color .15s;
+  }
+  .nav-link:hover{ border-color:var(--accent); color:var(--accent); }
+ 
+  /* Leaderboard */
+  .lb-toggle{ display:flex; gap:10px; margin-bottom:18px; }
+  .search-row{ display:flex; gap:10px; margin-bottom:20px; }
+  .search-row .text-input{ flex:1; }
+  .lb-hint{
+    font-family:var(--mono);
+    font-size:10.5px;
+    color:var(--text-dim);
+    margin:-10px 0 18px;
+    letter-spacing:0.02em;
+  }
+  .lb-list{ display:flex; flex-direction:column; gap:8px; }
+  .lb-row{
+    display:flex; align-items:center; gap:12px;
+    padding:12px 14px;
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:8px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .lb-row.highlight{ border-color:var(--accent); background:rgba(124,255,178,0.07); }
+  .lb-row .rank{ color:var(--text-dim); width:28px; flex-shrink:0; }
+  .lb-row .pseudo{ flex:1; color:var(--text); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .lb-row .meta{ color:var(--text-dim); font-size:11px; margin-right:4px; }
+  .lb-row .score{ font-weight:700; color:var(--accent); min-width:56px; text-align:right; }
+  .lb-empty{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--text-dim);
+    text-align:center;
+    padding:30px 0;
+  }
+  .lb-loading{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--text-dim);
+    text-align:center;
+    padding:20px 0;
+  }
+ 
   .hide{ display:none !important; }
  
   @media (prefers-reduced-motion: reduce){
@@ -536,7 +604,6 @@
     .aperture-frame{ width:180px; height:180px; }
     .compare-swatch .sw{ width:78px; height:78px; }
     .join-row{ flex-direction:column; }
-    .share-link-row{ flex-direction:column; }
   }
 </style>
 </head>
@@ -548,10 +615,11 @@
     <span class="sub" id="deviceSub">Mode — Étalonnage</span>
   </div>
  
-  <div class="presence-note hide" id="presenceNote"></div>
- 
   <!-- SETUP SCREEN -->
   <section id="screen-setup">
+    <div class="nav-links">
+      <button type="button" class="nav-link" id="openLeaderboardBtn">🏆 Classements</button>
+    </div>
     <h1>Teste ta mémoire des couleurs.</h1>
     <p class="lede">Une teinte s'affiche brièvement. Une fois cachée, retrouve-la avec les deux curseurs — teinte et clarté — et obtiens ta note de précision.</p>
     <div class="panel">
@@ -578,23 +646,23 @@
         <label>Mode de jeu</label>
         <div class="mode-toggle">
           <button type="button" class="mode-btn active" id="modeSoloBtn">Solo</button>
-          <button type="button" class="mode-btn" id="modeSessionBtn">Session à plusieurs</button>
+          <button type="button" class="mode-btn" id="modeSessionBtn">Session à deux</button>
         </div>
       </div>
  
-      <div class="field hide" id="pseudoField">
+      <div class="field">
+        <label>Couleurs par manche</label>
+        <div class="mode-toggle">
+          <button type="button" class="mode-btn active" id="colors1Btn">1 couleur</button>
+          <button type="button" class="mode-btn" id="colors2Btn">2 couleurs (avancé)</button>
+        </div>
+        <div class="field-note" id="colorsCountNote">Une seule teinte à mémoriser et reproduire par manche.</div>
+      </div>
+ 
+      <div class="field" id="pseudoField">
         <label for="pseudoInput">Ton pseudo</label>
         <input type="text" id="pseudoInput" class="text-input" maxlength="16" placeholder="ex. Raptor">
-      </div>
- 
-      <div class="field hide" id="maxPlayersField">
-        <label for="maxPlayersDisplay">Joueurs max (si tu crées la session)</label>
-        <div class="stepper">
-          <button type="button" id="maxPlayersMinusBtn" aria-label="Diminuer">−</button>
-          <input type="number" class="count" id="maxPlayersDisplay" value="2" min="2" max="6" inputmode="numeric">
-          <button type="button" id="maxPlayersPlusBtn" aria-label="Augmenter">+</button>
-        </div>
-        <div class="field-hint">De 2 à 6 joueurs.</div>
+        <div class="field-note">Utilisé pour les classements (solo) et pour la session à deux.</div>
       </div>
  
       <div class="field hide" id="sessionActionsField">
@@ -606,34 +674,23 @@
             <button type="button" class="btn-ghost" id="joinSessionBtn" style="margin-top:0;">Rejoindre</button>
           </div>
         </div>
-        <div class="error-msg" id="setupErrorMsg"></div>
       </div>
  
+      <div class="error-msg" id="setupErrorMsg"></div>
       <button class="btn-main" id="startBtn">Démarrer la série</button>
     </div>
-    <button type="button" class="btn-ghost" id="viewHistoryBtn" style="margin-top:14px;">📊 Voir l'historique &amp; le classement</button>
   </section>
  
-  <!-- WAITING SCREEN (lobby OR waiting for other players' results) -->
+  <!-- WAITING SCREEN -->
   <section id="screen-waiting" class="hide">
     <h1 id="waitingTitle">Session créée.</h1>
-    <p class="lede" id="waitingLede">Partage ce code avec les autres joueurs pour qu'ils puissent rejoindre.</p>
+    <p class="lede" id="waitingLede">Partage ce code avec l'autre joueur pour qu'il puisse rejoindre.</p>
     <div class="panel" style="text-align:center;">
       <div class="hide" id="sessionCodeBlock">
         <div class="field-hint" style="margin-top:0;">Code de session</div>
-        <div class="code-row">
-          <div class="session-code" id="sessionCodeDisplay">-----</div>
-          <button type="button" class="icon-btn" id="copyCodeBtn" title="Copier le code">📋</button>
-        </div>
-        <div class="share-link-row">
-          <input type="text" class="text-input" id="shareLinkInput" readonly>
-          <button type="button" class="icon-btn" id="copyLinkBtn" title="Copier le lien">🔗</button>
-        </div>
+        <div class="session-code" id="sessionCodeDisplay">-----</div>
       </div>
-      <div class="player-list" id="playerList"></div>
-      <div class="status-line active" id="waitingStatus">En attente…</div>
-      <button class="btn-main hide" id="startSessionGameBtn" style="margin-top:16px;">Lancer la partie</button>
-      <div class="error-msg" id="waitingErrorMsg"></div>
+      <div class="status-line pending" id="waitingStatus">En attente…</div>
     </div>
   </section>
  
@@ -646,10 +703,15 @@
         <div class="status-line" id="statusLine">Mémorisation</div>
         <div class="aperture-frame">
           <div class="aperture" id="apertureMemorize"></div>
+          <div class="aperture aperture-split hide" id="apertureSplit">
+            <div class="split-half" id="apertureLeft"></div>
+            <div class="split-half" id="apertureRight"></div>
+          </div>
         </div>
       </div>
  
       <div class="sliders hide" id="sliderSection">
+        <div class="slider-group-title hide" id="group1Title">Couleur 1 (gauche)</div>
         <div class="slider-row">
           <div class="row-top">
             <label for="hueSlider">Teinte</label>
@@ -664,6 +726,23 @@
           </div>
           <input type="range" id="lightSlider" min="5" max="95" value="50" step="1">
         </div>
+ 
+        <div class="slider-group-title hide" id="group2Title">Couleur 2 (droite)</div>
+        <div class="slider-row hide" id="hue2Row">
+          <div class="row-top">
+            <label for="hueSlider2">Teinte</label>
+            <span class="val" id="hueVal2">180°</span>
+          </div>
+          <input type="range" id="hueSlider2" min="0" max="360" value="180" step="1">
+        </div>
+        <div class="slider-row hide" id="light2Row">
+          <div class="row-top">
+            <label for="lightSlider2">Clarté (foncé → clair)</label>
+            <span class="val" id="lightVal2">50%</span>
+          </div>
+          <input type="range" id="lightSlider2" min="5" max="95" value="50" step="1">
+        </div>
+ 
         <button class="btn-main" id="submitGuessBtn">Valider ma réponse</button>
       </div>
     </div>
@@ -682,21 +761,31 @@
       <div class="compare-row">
         <div class="compare-swatch">
           <div class="sw" id="targetSwatch"></div>
-          <div class="lbl">Couleur cible</div>
+          <div class="lbl" id="targetLbl1">Couleur cible</div>
         </div>
         <div class="compare-swatch">
           <div class="sw" id="guessSwatch"></div>
-          <div class="lbl">Ta réponse</div>
+          <div class="lbl" id="guessLbl1">Ta réponse</div>
+        </div>
+      </div>
+      <div class="compare-row hide" id="compareRow2">
+        <div class="compare-swatch">
+          <div class="sw" id="targetSwatch2"></div>
+          <div class="lbl">Cible 2</div>
+        </div>
+        <div class="compare-swatch">
+          <div class="sw" id="guessSwatch2"></div>
+          <div class="lbl">Réponse 2</div>
         </div>
       </div>
  
       <div class="err-grid">
         <div class="err-card">
-          <div class="k">Écart teinte</div>
+          <div class="k" id="hueErrLbl">Écart teinte</div>
           <div class="v" id="hueErrVal">0°</div>
         </div>
         <div class="err-card">
-          <div class="k">Écart clarté</div>
+          <div class="k" id="lightErrLbl">Écart clarté</div>
           <div class="v" id="lightErrVal">0%</div>
         </div>
       </div>
@@ -716,40 +805,56 @@
         <div class="v"><span id="totalScoreVal">0.00</span><span class="over" id="totalOverVal"> / 50</span></div>
       </div>
       <button class="btn-main" id="replayBtn" style="margin-top:20px;">Refaire une série</button>
+      <button class="btn-ghost" id="viewLeaderboardBtn">Voir les classements</button>
+      <div class="field-note" id="soloSaveStatus" style="text-align:center; margin-top:10px;"></div>
     </div>
   </section>
  
-  <!-- LEADERBOARD SCREEN (session, 2+ joueurs) -->
+  <!-- COMPARE SCREEN (session) -->
+  <section id="screen-compare" class="hide">
+    <h1>Résultats de la session.</h1>
+    <p class="lede">Comparaison couleur par couleur.</p>
+    <div class="panel">
+      <div class="compare-table">
+        <div class="head" id="compareHeadNames">
+          <span class="idxcol"></span><span class="col">Toi</span><span class="col">Adversaire</span>
+        </div>
+        <div id="compareRoundList"></div>
+      </div>
+      <div class="totals-compare">
+        <div class="side" id="compareTotalHostSide">
+          <div class="name" id="compareTotalHostName">—</div>
+          <div class="num"><span id="compareTotalHostVal">0.00</span></div>
+        </div>
+        <div class="side" id="compareTotalGuestSide">
+          <div class="name" id="compareTotalGuestName">—</div>
+          <div class="num"><span id="compareTotalGuestVal">0.00</span></div>
+        </div>
+      </div>
+      <button class="btn-main" id="newSessionBtn" style="margin-top:20px;">Nouvelle session</button>
+    </div>
+  </section>
+ 
+  <!-- LEADERBOARD SCREEN -->
   <section id="screen-leaderboard" class="hide">
-    <h1>Résultats de la partie.</h1>
-    <p class="lede">Classement de cette série<span id="leaderboardTotalOver"></span>.</p>
-    <div class="panel">
-      <div class="round-list" id="leaderboardList"></div>
-      <button class="btn-main" id="rematchBtn" style="margin-top:16px;">🔁 Revanche</button>
-      <button class="btn-ghost" id="newSessionBtn">Nouvelle session (autres joueurs)</button>
+    <div class="nav-links">
+      <button type="button" class="nav-link" id="closeLeaderboardBtn">← Retour</button>
     </div>
-  </section>
- 
-  <!-- HISTORY / LEADERBOARD SCREEN -->
-  <section id="screen-history" class="hide">
-    <h1>Historique &amp; classement.</h1>
-    <p class="lede">Statistiques cumulées de toutes les sessions à plusieurs joueurs.</p>
+    <h1>Classements — Solo</h1>
+    <p class="lede">Deux vues : les meilleures parties individuelles, et le classement global par joueur (meilleur score cumulé).</p>
     <div class="panel">
-      <div class="field-hint" style="margin-top:0;">Classement général (victoires)</div>
-      <div class="round-list" id="leaderboardGlobalList"></div>
- 
-      <div class="field" style="margin-top:8px;">
-        <label for="h2hInput1">Rechercher un pseudo</label>
-        <input type="text" class="text-input" id="h2hInput1" placeholder="ex. Raptor">
+      <div class="lb-toggle">
+        <button type="button" class="mode-btn active" id="lbPartiesBtn">Parties</button>
+        <button type="button" class="mode-btn" id="lbGlobalBtn">Global (par joueur)</button>
       </div>
-      <div class="field">
-        <label for="h2hInput2">Comparer à un pseudo précis (optionnel)</label>
-        <input type="text" class="text-input" id="h2hInput2" placeholder="ex. Nova — laisse vide pour voir tous ses adversaires">
+      <div class="search-row">
+        <input type="text" id="lbSearchInput" class="text-input" placeholder="Rechercher un ou deux pseudos, ex. Raptor, Nova">
+        <button type="button" class="btn-ghost" id="lbSearchBtn" style="width:auto; margin-top:0; padding:14px 18px;">🔍</button>
       </div>
-      <button class="btn-main" id="h2hSearchBtn">Rechercher</button>
-      <div id="h2hResult" style="margin-top:16px;"></div>
- 
-      <button class="btn-ghost" id="historyBackBtn" style="margin-top:20px;">Retour</button>
+      <div class="lb-hint" id="lbHint">Top 50 — tape un pseudo (ou deux, séparés par une virgule) puis Rechercher.</div>
+      <div id="lbContent">
+        <div class="lb-loading">Chargement…</div>
+      </div>
     </div>
   </section>
  
@@ -760,7 +865,7 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import {
     getFirestore, doc, setDoc, getDoc, updateDoc, onSnapshot, serverTimestamp,
-    Timestamp, arrayUnion, increment, collection, addDoc, query, where, orderBy, limit, getDocs
+    addDoc, collection, query, orderBy, limit, getDocs, where, runTransaction
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
  
   let db = null;
@@ -774,28 +879,23 @@
   }
  
   const FIXED_SAT = 65;
-  const PRESENCE_TIMEOUT_MS = 15000;
-  const HEARTBEAT_INTERVAL_MS = 5000;
  
   let totalRounds = 5;
   let colorDurationSec = 2;
+  let colorsPerRound = 1; // 1 or 2
   let currentRound = 0;
   let target = null;
   let results = [];
  
   let mode = 'solo';
   let pseudo = '';
-  let maxPlayers = 2;
   let sessionCode = null;
   let isHost = false;
   let sessionColors = [];
-  let myPlayerId = null;
+  let opponentPseudo = null;
   let sessionUnsub = null;
   let lastSessionData = null;
-  let waitingPhase = null; // null | 'lobby' | 'results'
-  let heartbeatTimer = null;
-  let myRematchJoined = null;
-  let rematchJoining = false;
+  let waitingFor = null; // null | 'join' | 'results'
  
   const screens = {
     setup: document.getElementById('screen-setup'),
@@ -803,8 +903,8 @@
     game: document.getElementById('screen-game'),
     result: document.getElementById('screen-result'),
     summary: document.getElementById('screen-summary'),
+    compare: document.getElementById('screen-compare'),
     leaderboard: document.getElementById('screen-leaderboard'),
-    history: document.getElementById('screen-history'),
   };
   const deviceSub = document.getElementById('deviceSub');
  
@@ -821,33 +921,63 @@
     return String(str).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   }
  
-  function makePlayerId(){
-    if (window.crypto && crypto.randomUUID) return 'p_' + crypto.randomUUID().slice(0, 8);
-    return 'p_' + Math.random().toString(36).slice(2, 10);
+  // ---- Leaderboards (solo) helpers ----
+  function sanitizePseudoId(p){
+    return (p || '').trim().toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9_-]+/g, '_')
+      .slice(0, 40) || 'joueur';
   }
  
-  function sanitizeId(str){
-    return (str || '').trim().toLowerCase().replace(/[^a-z0-9_-]/g, '_').slice(0, 60) || 'joueur';
+  async function saveSoloResult(pseudoName, total, rounds, cpr){
+    if (!firebaseReady) return { ok:false, reason:'no-firebase' };
+    try {
+      await addDoc(collection(db, 'soloResults'), {
+        pseudo: pseudoName,
+        pseudoLower: pseudoName.trim().toLowerCase(),
+        score: total,
+        totalRounds: rounds,
+        colorsPerRound: cpr,
+        avgScore: Math.round((total / rounds) * 100) / 100,
+        createdAt: serverTimestamp()
+      });
+      await updatePlayerGlobal(pseudoName, total, rounds);
+      return { ok:true };
+    } catch (e){
+      console.error('saveSoloResult error', e);
+      return { ok:false, reason: e.message };
+    }
   }
  
-  function buildShareLink(code){
-    return `${location.origin}${location.pathname}?code=${code}`;
-  }
- 
-  function getPlayersArray(data){
-    if (!data) return [];
-    const order = (data.order && data.order.length) ? data.order : Object.keys(data.players || {});
-    return order.filter(id => data.players && data.players[id]).map(id => ({ id, ...data.players[id] }));
-  }
- 
-  function copyText(text, btn){
-    if (!text) return;
-    navigator.clipboard.writeText(text).then(() => {
-      btn.classList.add('copied');
-      const old = btn.textContent;
-      btn.textContent = '✓';
-      setTimeout(() => { btn.classList.remove('copied'); btn.textContent = old; }, 1500);
-    }).catch(() => {});
+  async function updatePlayerGlobal(pseudoName, score, rounds){
+    const id = sanitizePseudoId(pseudoName);
+    const ref = doc(db, 'players', id);
+    await runTransaction(db, async (tx) => {
+      const snap = await tx.get(ref);
+      if (!snap.exists()){
+        tx.set(ref, {
+          pseudo: pseudoName,
+          pseudoLower: pseudoName.trim().toLowerCase(),
+          bestScore: score,
+          bestScoreRounds: rounds,
+          gamesPlayed: 1,
+          totalScoreSum: score,
+          updatedAt: serverTimestamp()
+        });
+      } else {
+        const d = snap.data();
+        const newBest = Math.max(d.bestScore || 0, score);
+        tx.update(ref, {
+          pseudo: pseudoName,
+          pseudoLower: pseudoName.trim().toLowerCase(),
+          bestScore: newBest,
+          bestScoreRounds: newBest === score ? rounds : (d.bestScoreRounds || rounds),
+          gamesPlayed: (d.gamesPlayed || 0) + 1,
+          totalScoreSum: (d.totalScoreSum || 0) + score,
+          updatedAt: serverTimestamp()
+        });
+      }
+    });
   }
  
   // ---- Rounds / duration fields ----
@@ -880,26 +1010,10 @@
   durationDisplay.addEventListener('change', () => setDuration(parseFloat(durationDisplay.value)));
   durationDisplay.addEventListener('blur', () => setDuration(parseFloat(durationDisplay.value)));
  
-  // ---- Max players field ----
-  const maxPlayersDisplay = document.getElementById('maxPlayersDisplay');
-  const MIN_PLAYERS = 2, MAX_PLAYERS = 6;
- 
-  function setMaxPlayers(n){
-    if (isNaN(n)) n = maxPlayers;
-    n = Math.max(MIN_PLAYERS, Math.min(MAX_PLAYERS, Math.round(n)));
-    maxPlayers = n;
-    maxPlayersDisplay.value = n;
-  }
-  document.getElementById('maxPlayersMinusBtn').addEventListener('click', () => setMaxPlayers(maxPlayers - 1));
-  document.getElementById('maxPlayersPlusBtn').addEventListener('click', () => setMaxPlayers(maxPlayers + 1));
-  maxPlayersDisplay.addEventListener('change', () => setMaxPlayers(parseInt(maxPlayersDisplay.value, 10)));
-  maxPlayersDisplay.addEventListener('blur', () => setMaxPlayers(parseInt(maxPlayersDisplay.value, 10)));
- 
   // ---- Mode toggle ----
   const modeSoloBtn = document.getElementById('modeSoloBtn');
   const modeSessionBtn = document.getElementById('modeSessionBtn');
   const pseudoField = document.getElementById('pseudoField');
-  const maxPlayersField = document.getElementById('maxPlayersField');
   const sessionActionsField = document.getElementById('sessionActionsField');
   const pseudoInput = document.getElementById('pseudoInput');
   const joinCodeInput = document.getElementById('joinCodeInput');
@@ -910,14 +1024,28 @@
     mode = m;
     modeSoloBtn.classList.toggle('active', m === 'solo');
     modeSessionBtn.classList.toggle('active', m === 'session');
-    pseudoField.classList.toggle('hide', m !== 'session');
-    maxPlayersField.classList.toggle('hide', m !== 'session');
     sessionActionsField.classList.toggle('hide', m !== 'session');
     startBtn.classList.toggle('hide', m !== 'solo');
     setupErrorMsg.textContent = '';
   }
   modeSoloBtn.addEventListener('click', () => setMode('solo'));
   modeSessionBtn.addEventListener('click', () => setMode('session'));
+ 
+  // ---- Colors-per-round toggle (1 or 2 colors, works in solo + session) ----
+  const colors1Btn = document.getElementById('colors1Btn');
+  const colors2Btn = document.getElementById('colors2Btn');
+  const colorsCountNote = document.getElementById('colorsCountNote');
+ 
+  function setColorsPerRound(n){
+    colorsPerRound = n;
+    colors1Btn.classList.toggle('active', n === 1);
+    colors2Btn.classList.toggle('active', n === 2);
+    colorsCountNote.textContent = n === 1
+      ? 'Une seule teinte à mémoriser et reproduire par manche.'
+      : 'Le rond est divisé en deux : deux teintes à mémoriser et reproduire (4 curseurs).';
+  }
+  colors1Btn.addEventListener('click', () => setColorsPerRound(1));
+  colors2Btn.addEventListener('click', () => setColorsPerRound(2));
  
   function showSetupError(msg){ setupErrorMsg.textContent = msg; }
  
@@ -929,128 +1057,56 @@
   }
  
   document.getElementById('startBtn').addEventListener('click', () => {
+    const p = pseudoInput.value.trim();
+    if (!p){ showSetupError('Entre un pseudo (il sert pour les classements).'); return; }
+    pseudo = p;
     results = [];
     currentRound = 0;
     deviceSub.textContent = 'Mode — Série en cours';
     nextRound();
   });
  
-  // ---- Presence (heartbeat + disconnect detection) ----
-  function startHeartbeat(){
-    stopHeartbeat();
-    heartbeatTimer = setInterval(() => {
-      if (db && sessionCode && myPlayerId){
-        updateDoc(doc(db, 'sessions', sessionCode), { [`players.${myPlayerId}.lastSeen`]: Date.now() }).catch(() => {});
-      }
-    }, HEARTBEAT_INTERVAL_MS);
-  }
-  function stopHeartbeat(){
-    if (heartbeatTimer){ clearInterval(heartbeatTimer); heartbeatTimer = null; }
-  }
- 
-  function updatePresenceNote(){
-    const note = document.getElementById('presenceNote');
-    if (mode !== 'session' || !lastSessionData){ note.classList.add('hide'); note.textContent = ''; return; }
-    const now = Date.now();
-    const issues = getPlayersArray(lastSessionData)
-      .filter(p => p.id !== myPlayerId)
-      .map(p => {
-        if (p.left) return `${p.pseudo} a quitté la partie`;
-        if (p.lastSeen && (now - p.lastSeen) > PRESENCE_TIMEOUT_MS) return `${p.pseudo} semble déconnecté(e)`;
-        return null;
-      })
-      .filter(Boolean);
-    if (issues.length){
-      note.textContent = '⚠ ' + issues.join(' · ');
-      note.classList.remove('hide');
-    } else {
-      note.classList.add('hide');
-      note.textContent = '';
-    }
-  }
-  setInterval(updatePresenceNote, 3000);
- 
-  window.addEventListener('beforeunload', () => {
-    if (db && sessionCode && myPlayerId){
-      try { updateDoc(doc(db, 'sessions', sessionCode), { [`players.${myPlayerId}.left`]: true }); } catch (e) {}
-    }
-  });
- 
-  // ---- Create / join session ----
-  async function createSession(p, maxPlayersOverride){
-    const colors = [];
-    for (let i = 0; i < totalRounds; i++) colors.push(randTarget());
-    const code = generateSessionCode();
-    myPlayerId = makePlayerId();
-    const mp = maxPlayersOverride || maxPlayers;
-    const expireAt = Timestamp.fromDate(new Date(Date.now() + 30 * 24 * 3600 * 1000));
- 
-    await setDoc(doc(db, 'sessions', code), {
-      code,
-      createdAt: serverTimestamp(),
-      expireAt,
-      rounds: totalRounds,
-      durationSec: colorDurationSec,
-      maxPlayers: mp,
-      status: 'waiting',
-      colors,
-      hostId: myPlayerId,
-      order: [myPlayerId],
-      players: {
-        [myPlayerId]: { pseudo: p, isHost: true, joinedAt: Date.now(), lastSeen: Date.now(), left: false, results: null }
-      },
-      rematchCode: null,
-      historyLogged: false
-    });
- 
-    isHost = true;
-    sessionCode = code;
-    sessionColors = colors;
-    pseudo = p;
-    waitingPhase = 'lobby';
-    startHeartbeat();
-    listenToSession(code);
-  }
- 
-  async function joinSessionByCode(code, p){
-    const ref = doc(db, 'sessions', code);
-    const snap = await getDoc(ref);
-    if (!snap.exists()) throw { code: 'notfound' };
-    const data = snap.data();
-    if (data.status !== 'waiting') throw { code: 'started' };
-    const count = Object.keys(data.players || {}).length;
-    if (count >= (data.maxPlayers || 2)) throw { code: 'full' };
- 
-    myPlayerId = makePlayerId();
-    await updateDoc(ref, {
-      [`players.${myPlayerId}`]: { pseudo: p, isHost: false, joinedAt: Date.now(), lastSeen: Date.now(), left: false, results: null },
-      order: arrayUnion(myPlayerId)
-    });
- 
-    isHost = false;
-    sessionCode = code;
-    sessionColors = data.colors;
-    totalRounds = data.rounds;
-    colorDurationSec = data.durationSec;
-    pseudo = p;
-    waitingPhase = 'lobby';
-    startHeartbeat();
-    listenToSession(code);
-  }
- 
   document.getElementById('createSessionBtn').addEventListener('click', async () => {
     if (!firebaseReady){ showSetupError('Firebase non configuré — complète firebase-config.js.'); return; }
     const p = pseudoInput.value.trim();
     if (!p){ showSetupError('Entre un pseudo avant de créer une session.'); return; }
+    pseudo = p;
+ 
+    const colors = [];
+    for (let i = 0; i < totalRounds; i++) colors.push(genRoundTarget(colorsPerRound));
+    const code = generateSessionCode();
+ 
     try {
-      await createSession(p, parseInt(maxPlayersDisplay.value, 10));
+      await setDoc(doc(db, 'sessions', code), {
+        createdAt: serverTimestamp(),
+        rounds: totalRounds,
+        durationSec: colorDurationSec,
+        colorsPerRound,
+        colors,
+        hostPseudo: pseudo,
+        guestPseudo: null,
+        hostResults: null,
+        guestResults: null
+      });
     } catch (e) {
       console.error(e);
       showSetupError("Impossible de créer la session — vérifie ta config Firebase et tes règles Firestore.");
       return;
     }
+ 
+    isHost = true;
+    sessionCode = code;
+    sessionColors = colors;
+    waitingFor = 'join';
+ 
+    document.getElementById('waitingTitle').textContent = 'Session créée.';
+    document.getElementById('waitingLede').textContent = "Partage ce code avec l'autre joueur pour qu'il puisse rejoindre.";
+    document.getElementById('sessionCodeBlock').classList.remove('hide');
+    document.getElementById('sessionCodeDisplay').textContent = code;
+    document.getElementById('waitingStatus').textContent = "En attente de l'autre joueur…";
     deviceSub.textContent = 'Mode — Session : en attente';
     showScreen('waiting');
+    listenToSession(code);
   });
  
   document.getElementById('joinSessionBtn').addEventListener('click', async () => {
@@ -1059,65 +1115,38 @@
     const code = joinCodeInput.value.trim().toUpperCase();
     if (!p){ showSetupError('Entre un pseudo avant de rejoindre.'); return; }
     if (!code){ showSetupError('Entre un code de session.'); return; }
+    pseudo = p;
+ 
+    let snap;
     try {
-      await joinSessionByCode(code, p);
+      snap = await getDoc(doc(db, 'sessions', code));
     } catch (e) {
       console.error(e);
-      if (e && e.code === 'notfound') showSetupError('Code introuvable.');
-      else if (e && e.code === 'started') showSetupError('Cette session a déjà démarré.');
-      else if (e && e.code === 'full') showSetupError('Cette session est complète.');
-      else showSetupError('Impossible de rejoindre — vérifie tes règles Firestore.');
+      showSetupError('Impossible de contacter le service — vérifie ta config Firebase.');
       return;
     }
-    deviceSub.textContent = 'Mode — Session : en attente';
-    showScreen('waiting');
-  });
+    if (!snap.exists()){ showSetupError('Code introuvable.'); return; }
+    const data = snap.data();
+    if (data.guestPseudo){ showSetupError('Cette session est déjà complète.'); return; }
  
-  // ---- Copy buttons ----
-  document.getElementById('copyCodeBtn').addEventListener('click', () => copyText(sessionCode || '', document.getElementById('copyCodeBtn')));
-  document.getElementById('copyLinkBtn').addEventListener('click', () => copyText(document.getElementById('shareLinkInput').value, document.getElementById('copyLinkBtn')));
- 
-  // ---- Lobby rendering ----
-  function renderWaitingScreen(data){
-    const players = getPlayersArray(data);
-    const list = document.getElementById('playerList');
-    list.innerHTML = '';
-    const now = Date.now();
-    players.forEach(p => {
-      const dot = p.left ? '🔴' : ((p.lastSeen && (now - p.lastSeen) > PRESENCE_TIMEOUT_MS) ? '🟠' : '🟢');
-      const row = document.createElement('div');
-      row.className = 'player-row';
-      row.innerHTML = `<span class="dot">${dot}</span><span class="pname">${escapeHtml(p.pseudo)}${p.isHost ? '<span class="host-tag">hôte</span>' : ''}${p.id === myPlayerId ? ' (toi)' : ''}</span>`;
-      list.appendChild(row);
-    });
- 
-    const startBtnEl = document.getElementById('startSessionGameBtn');
-    const waitingStatusEl = document.getElementById('waitingStatus');
-    const codeBlock = document.getElementById('sessionCodeBlock');
- 
-    if (waitingPhase === 'lobby'){
-      document.getElementById('waitingTitle').textContent = isHost ? 'Session créée.' : "En salle d'attente.";
-      document.getElementById('waitingLede').textContent = "Partage ce code ou ce lien avec les autres joueurs pour qu'ils rejoignent.";
-      codeBlock.classList.toggle('hide', !isHost);
-      if (isHost){
-        document.getElementById('sessionCodeDisplay').textContent = sessionCode;
-        document.getElementById('shareLinkInput').value = buildShareLink(sessionCode);
-      }
-      waitingStatusEl.textContent = `${players.length} / ${data.maxPlayers || 2} joueur(s)`;
-      startBtnEl.classList.toggle('hide', !(isHost && players.length >= 2 && data.status === 'waiting'));
-    } else {
-      document.getElementById('waitingTitle').textContent = 'Série terminée.';
-      document.getElementById('waitingLede').textContent = "On attend que les autres joueurs terminent la leur.";
-      codeBlock.classList.add('hide');
-      const doneCount = players.filter(p => p.results).length;
-      waitingStatusEl.textContent = `${doneCount} / ${players.length} joueur(s) ont terminé…`;
-      startBtnEl.classList.add('hide');
+    try {
+      await updateDoc(doc(db, 'sessions', code), { guestPseudo: pseudo });
+    } catch (e) {
+      console.error(e);
+      showSetupError('Impossible de rejoindre — vérifie tes règles Firestore.');
+      return;
     }
-  }
  
-  document.getElementById('startSessionGameBtn').addEventListener('click', async () => {
-    try { await updateDoc(doc(db, 'sessions', sessionCode), { status: 'playing' }); }
-    catch (e) { console.error(e); }
+    isHost = false;
+    sessionCode = code;
+    sessionColors = data.colors;
+    totalRounds = data.rounds;
+    colorDurationSec = data.durationSec;
+    colorsPerRound = data.colorsPerRound || 1;
+    opponentPseudo = data.hostPseudo;
+ 
+    listenToSession(code);
+    beginSessionGame();
   });
  
   function listenToSession(code){
@@ -1126,25 +1155,17 @@
       if (!snap.exists()) return;
       const data = snap.data();
       lastSessionData = data;
-      updatePresenceNote();
  
-      if (waitingPhase === 'lobby'){
-        if (data.status === 'playing'){
-          waitingPhase = null;
-          beginSessionGame();
-        } else {
-          renderWaitingScreen(data);
-          if (isHost && data.status === 'waiting' && getPlayersArray(data).length >= (data.maxPlayers || 2)){
-            updateDoc(doc(db, 'sessions', code), { status: 'playing' }).catch(console.error);
-          }
+      if (waitingFor === 'join' && data.guestPseudo){
+        opponentPseudo = data.guestPseudo;
+        waitingFor = null;
+        beginSessionGame();
+      } else if (waitingFor === 'results'){
+        const oppKey = isHost ? 'guestResults' : 'hostResults';
+        if (data[oppKey]){
+          waitingFor = null;
+          renderCompare(data);
         }
-      } else if (waitingPhase === 'results'){
-        evaluateSessionProgress();
-      }
- 
-      if (data.rematchCode && data.rematchCode !== myRematchJoined && !rematchJoining){
-        rematchJoining = true;
-        joinRematch(data.rematchCode).finally(() => { rematchJoining = false; });
       }
     });
   }
@@ -1152,7 +1173,7 @@
   function beginSessionGame(){
     results = [];
     currentRound = 0;
-    deviceSub.textContent = 'Mode — Partie en cours';
+    deviceSub.textContent = 'Mode — vs ' + (opponentPseudo || '?');
     nextRound();
   }
  
@@ -1160,12 +1181,25 @@
   const gameTitle = document.getElementById('gameTitle');
   const statusLine = document.getElementById('statusLine');
   const apertureMemorize = document.getElementById('apertureMemorize');
+  const apertureSplit = document.getElementById('apertureSplit');
+  const apertureLeft = document.getElementById('apertureLeft');
+  const apertureRight = document.getElementById('apertureRight');
   const sliderSection = document.getElementById('sliderSection');
   const hueSlider = document.getElementById('hueSlider');
   const lightSlider = document.getElementById('lightSlider');
   const hueVal = document.getElementById('hueVal');
   const lightVal = document.getElementById('lightVal');
+  const hueSlider2 = document.getElementById('hueSlider2');
+  const lightSlider2 = document.getElementById('lightSlider2');
+  const hueVal2 = document.getElementById('hueVal2');
+  const lightVal2 = document.getElementById('lightVal2');
+  const group1Title = document.getElementById('group1Title');
+  const group2Title = document.getElementById('group2Title');
+  const hue2Row = document.getElementById('hue2Row');
+  const light2Row = document.getElementById('light2Row');
   const submitGuessBtn = document.getElementById('submitGuessBtn');
+ 
+  let roundCpr = 1; // colors-per-round actually used for the round in progress
  
   function randTarget(){
     return {
@@ -1174,42 +1208,73 @@
     };
   }
  
+  function genRoundTarget(cpr){
+    return cpr === 2 ? { c1: randTarget(), c2: randTarget() } : randTarget();
+  }
+ 
   function updateGuessPreview(){
     const h = parseInt(hueSlider.value, 10);
     const l = parseInt(lightSlider.value, 10);
     hueVal.textContent = h + '°';
     lightVal.textContent = l + '%';
-    apertureMemorize.style.backgroundColor = hsl(h, l);
     lightSlider.style.background = `linear-gradient(90deg, ${hsl(h, 5)}, ${hsl(h, 95)})`;
+ 
+    if (roundCpr === 2){
+      const h2 = parseInt(hueSlider2.value, 10);
+      const l2 = parseInt(lightSlider2.value, 10);
+      hueVal2.textContent = h2 + '°';
+      lightVal2.textContent = l2 + '%';
+      lightSlider2.style.background = `linear-gradient(90deg, ${hsl(h2, 5)}, ${hsl(h2, 95)})`;
+      apertureLeft.style.backgroundColor = hsl(h, l);
+      apertureRight.style.backgroundColor = hsl(h2, l2);
+    } else {
+      apertureMemorize.style.backgroundColor = hsl(h, l);
+    }
   }
   hueSlider.addEventListener('input', updateGuessPreview);
   lightSlider.addEventListener('input', updateGuessPreview);
+  hueSlider2.addEventListener('input', updateGuessPreview);
+  lightSlider2.addEventListener('input', updateGuessPreview);
  
   function nextRound(){
     currentRound++;
     if (currentRound > totalRounds){
       if (mode === 'session') finishSessionSeries();
-      else { renderSummary(); showScreen('summary'); }
+      else { finishSoloSeries(); }
       return;
     }
     gameTitle.textContent = `Couleur ${currentRound} / ${totalRounds}`;
-    target = (mode === 'session') ? sessionColors[currentRound - 1] : randTarget();
+    target = (mode === 'session') ? sessionColors[currentRound - 1] : genRoundTarget(colorsPerRound);
+    roundCpr = (target && target.c1) ? 2 : 1;
+ 
+    apertureMemorize.classList.toggle('hide', roundCpr === 2);
+    apertureSplit.classList.toggle('hide', roundCpr !== 2);
+    group1Title.classList.toggle('hide', roundCpr !== 2);
+    group2Title.classList.toggle('hide', roundCpr !== 2);
+    hue2Row.classList.toggle('hide', roundCpr !== 2);
+    light2Row.classList.toggle('hide', roundCpr !== 2);
  
     sliderSection.classList.add('hide');
     statusLine.textContent = 'Mémorisation';
     statusLine.classList.add('active');
-    apertureMemorize.classList.remove('hidden-swatch');
-    apertureMemorize.style.backgroundColor = hsl(target.hue, target.light);
+ 
+    if (roundCpr === 2){
+      apertureLeft.style.backgroundColor = hsl(target.c1.hue, target.c1.light);
+      apertureRight.style.backgroundColor = hsl(target.c2.hue, target.c2.light);
+    } else {
+      apertureMemorize.style.backgroundColor = hsl(target.hue, target.light);
+    }
  
     showScreen('game');
  
     setTimeout(() => {
-      apertureMemorize.classList.remove('hidden-swatch');
       statusLine.textContent = 'À toi de jouer';
       statusLine.classList.remove('active');
  
       hueSlider.value = 180;
       lightSlider.value = 50;
+      hueSlider2.value = 180;
+      lightSlider2.value = 50;
       updateGuessPreview();
       sliderSection.classList.remove('hide');
     }, colorDurationSec * 1000);
@@ -1235,8 +1300,15 @@
   const scoreTag = document.getElementById('scoreTag');
   const targetSwatch = document.getElementById('targetSwatch');
   const guessSwatch = document.getElementById('guessSwatch');
+  const targetLbl1 = document.getElementById('targetLbl1');
+  const guessLbl1 = document.getElementById('guessLbl1');
+  const compareRow2 = document.getElementById('compareRow2');
+  const targetSwatch2 = document.getElementById('targetSwatch2');
+  const guessSwatch2 = document.getElementById('guessSwatch2');
   const hueErrVal = document.getElementById('hueErrVal');
   const lightErrVal = document.getElementById('lightErrVal');
+  const hueErrLbl = document.getElementById('hueErrLbl');
+  const lightErrLbl = document.getElementById('lightErrLbl');
  
   function tagFor(score){
     if (score >= 9) return { text: 'Œil de lynx', color: 'var(--accent)' };
@@ -1249,18 +1321,60 @@
   submitGuessBtn.addEventListener('click', () => {
     const guessHue = parseInt(hueSlider.value, 10);
     const guessLight = parseInt(lightSlider.value, 10);
-    const { score, hueDiff, lightDiff } = computeScore(target, guessHue, guessLight);
  
-    results.push({ hue: target.hue, light: target.light, guessHue, guessLight, score, hueDiff, lightDiff });
+    let score, hueDiff, lightDiff;
+    let guessHue2 = null, guessLight2 = null;
+ 
+    if (roundCpr === 2){
+      guessHue2 = parseInt(hueSlider2.value, 10);
+      guessLight2 = parseInt(lightSlider2.value, 10);
+      const r1 = computeScore(target.c1, guessHue, guessLight);
+      const r2 = computeScore(target.c2, guessHue2, guessLight2);
+      score = Math.round(((r1.score + r2.score) / 2) * 100) / 100;
+      hueDiff = Math.round((r1.hueDiff + r2.hueDiff) / 2);
+      lightDiff = Math.round((r1.lightDiff + r2.lightDiff) / 2);
+    } else {
+      const r = computeScore(target, guessHue, guessLight);
+      score = r.score; hueDiff = r.hueDiff; lightDiff = r.lightDiff;
+    }
+ 
+    results.push({
+      cpr: roundCpr,
+      hue: roundCpr === 2 ? target.c1.hue : target.hue,
+      light: roundCpr === 2 ? target.c1.light : target.light,
+      guessHue, guessLight,
+      hue2: roundCpr === 2 ? target.c2.hue : null,
+      light2: roundCpr === 2 ? target.c2.light : null,
+      guessHue2, guessLight2,
+      score, hueDiff, lightDiff
+    });
  
     resultIdx.textContent = currentRound;
     roundScoreVal.textContent = score.toFixed(2);
     const t = tagFor(score);
     scoreTag.textContent = t.text;
     scoreTag.style.color = t.color;
-    resultTag.textContent = 'Écart total pondéré converti sur 10 points.';
+    resultTag.textContent = roundCpr === 2
+      ? 'Moyenne des deux couleurs, écart total pondéré converti sur 10 points.'
+      : 'Écart total pondéré converti sur 10 points.';
  
-    targetSwatch.style.backgroundColor = hsl(target.hue, target.light);
+    if (roundCpr === 2){
+      targetLbl1.textContent = 'Cible 1';
+      guessLbl1.textContent = 'Réponse 1';
+      compareRow2.classList.remove('hide');
+      targetSwatch2.style.backgroundColor = hsl(target.c2.hue, target.c2.light);
+      guessSwatch2.style.backgroundColor = hsl(guessHue2, guessLight2);
+      hueErrLbl.textContent = 'Écart teinte (moy.)';
+      lightErrLbl.textContent = 'Écart clarté (moy.)';
+    } else {
+      targetLbl1.textContent = 'Couleur cible';
+      guessLbl1.textContent = 'Ta réponse';
+      compareRow2.classList.add('hide');
+      hueErrLbl.textContent = 'Écart teinte';
+      lightErrLbl.textContent = 'Écart clarté';
+    }
+ 
+    targetSwatch.style.backgroundColor = hsl(roundCpr === 2 ? target.c1.hue : target.hue, roundCpr === 2 ? target.c1.light : target.light);
     guessSwatch.style.backgroundColor = hsl(guessHue, guessLight);
     hueErrVal.textContent = Math.round(hueDiff) + '°';
     lightErrVal.textContent = Math.round(lightDiff) + '%';
@@ -1300,291 +1414,211 @@
     showScreen('setup');
   });
  
-  // ---- Session finish + leaderboard ----
+  document.getElementById('viewLeaderboardBtn').addEventListener('click', () => {
+    openLeaderboard('summary');
+  });
+ 
+  async function finishSoloSeries(){
+    renderSummary();
+    showScreen('summary');
+    const status = document.getElementById('soloSaveStatus');
+    const total = Math.round(results.reduce((s, r) => s + r.score, 0) * 100) / 100;
+    if (!pseudo){
+      status.textContent = '';
+      return;
+    }
+    status.textContent = 'Enregistrement du score au classement…';
+    const res = await saveSoloResult(pseudo, total, totalRounds, colorsPerRound);
+    status.textContent = res.ok
+      ? '✓ Score enregistré au classement solo.'
+      : "Score non enregistré (Firebase indisponible ou règles Firestore à corriger — voir FIRESTORE_RULES.txt).";
+  }
+ 
+  // ---- Session finish + compare ----
   async function finishSessionSeries(){
     const total = Math.round(results.reduce((s, r) => s + r.score, 0) * 100) / 100;
-    const payload = { scores: results.map(r => r.score), total, finishedAt: Date.now() };
+    const payload = { scores: results.map(r => r.score), total, finishedAt: serverTimestamp() };
+    const field = isHost ? 'hostResults' : 'guestResults';
  
     try {
-      await updateDoc(doc(db, 'sessions', sessionCode), { [`players.${myPlayerId}.results`]: payload });
+      await updateDoc(doc(db, 'sessions', sessionCode), { [field]: payload });
     } catch (e) {
       console.error(e);
     }
  
-    if (lastSessionData && lastSessionData.players && lastSessionData.players[myPlayerId]){
-      lastSessionData.players[myPlayerId].results = payload;
-    }
-    waitingPhase = 'results';
-    evaluateSessionProgress();
-  }
- 
-  function evaluateSessionProgress(){
-    const data = lastSessionData;
-    if (!data) return;
-    const players = getPlayersArray(data);
-    const allDone = players.length > 0 && players.every(p => p.results);
-    if (allDone){
-      waitingPhase = null;
-      renderLeaderboard(data);
+    const oppKey = isHost ? 'guestResults' : 'hostResults';
+    if (lastSessionData && lastSessionData[oppKey]){
+      renderCompare({ ...lastSessionData, [field]: payload });
     } else {
-      renderWaitingScreen(data);
+      waitingFor = 'results';
+      document.getElementById('waitingTitle').textContent = 'Série terminée.';
+      document.getElementById('waitingLede').textContent = "On attend que l'autre joueur termine la sienne.";
+      document.getElementById('sessionCodeBlock').classList.add('hide');
+      document.getElementById('waitingStatus').textContent = "En attente des résultats de l'adversaire…";
       deviceSub.textContent = 'Mode — En attente des résultats';
       showScreen('waiting');
     }
   }
  
-  function renderLeaderboard(data){
-    deviceSub.textContent = 'Mode — Résultats';
-    const players = getPlayersArray(data).filter(p => p.results);
-    const sorted = [...players].sort((a, b) => b.results.total - a.results.total);
-    const topScore = sorted.length ? sorted[0].results.total : 0;
+  function renderCompare(data){
+    deviceSub.textContent = 'Mode — Comparaison';
+    const hostName = data.hostPseudo || 'Joueur 1';
+    const guestName = data.guestPseudo || 'Joueur 2';
+    const meIsHost = isHost;
+    const myName = meIsHost ? hostName : guestName;
+    const oppName = meIsHost ? guestName : hostName;
  
-    const list = document.getElementById('leaderboardList');
+    document.getElementById('compareHeadNames').innerHTML =
+      `<span class="idxcol"></span><span class="col">${escapeHtml(myName)}</span><span class="col">${escapeHtml(oppName)}</span>`;
+ 
+    const hostScores = data.hostResults ? data.hostResults.scores : [];
+    const guestScores = data.guestResults ? data.guestResults.scores : [];
+    const myScores = meIsHost ? hostScores : guestScores;
+    const oppScores = meIsHost ? guestScores : hostScores;
+    const myTotal = (meIsHost ? data.hostResults : data.guestResults)?.total || 0;
+    const oppTotal = (meIsHost ? data.guestResults : data.hostResults)?.total || 0;
+ 
+    const list = document.getElementById('compareRoundList');
     list.innerHTML = '';
-    sorted.forEach((p, i) => {
-      const isWinner = p.results.total === topScore;
-      const row = document.createElement('div');
-      row.className = 'round-item' + (isWinner ? ' leaderboard-winner' : '');
-      row.innerHTML = `
-        <span class="idx">#${i+1}</span>
-        <span class="pname" style="flex:1;">${escapeHtml(p.pseudo)}${p.id === myPlayerId ? ' (toi)' : ''}${isWinner ? ' 🏆' : ''}</span>
-        <span class="sc">${p.results.total.toFixed(2)}</span>
-      `;
-      list.appendChild(row);
-    });
+    const n = Math.max(myScores.length, oppScores.length);
+    for (let i = 0; i < n; i++){
+      const ms = myScores[i] !== undefined ? myScores[i].toFixed(2) : '—';
+      const os = oppScores[i] !== undefined ? oppScores[i].toFixed(2) : '—';
+      const myWin = myScores[i] !== undefined && oppScores[i] !== undefined && myScores[i] > oppScores[i];
+      const oppWin = myScores[i] !== undefined && oppScores[i] !== undefined && oppScores[i] > myScores[i];
+      const item = document.createElement('div');
+      item.className = 'compare-row-item';
+      item.innerHTML = `<span class="idx">#${i+1}</span><span class="col${myWin?' win':''}">${ms}</span><span class="col${oppWin?' win':''}">${os}</span>`;
+      list.appendChild(item);
+    }
  
-    document.getElementById('leaderboardTotalOver').textContent = ' / ' + (data.rounds * 10).toFixed(0);
-    showScreen('leaderboard');
-    maybeWriteHistory(data);
+    document.getElementById('compareTotalHostName').textContent = myName;
+    document.getElementById('compareTotalGuestName').textContent = oppName;
+    document.getElementById('compareTotalHostVal').textContent = myTotal.toFixed(2);
+    document.getElementById('compareTotalGuestVal').textContent = oppTotal.toFixed(2);
+    document.getElementById('compareTotalHostSide').classList.toggle('winner', myTotal > oppTotal);
+    document.getElementById('compareTotalGuestSide').classList.toggle('winner', oppTotal > myTotal);
+ 
+    showScreen('compare');
   }
  
-  async function maybeWriteHistory(data){
-    if (!isHost) return;
-    if (data.historyLogged) return;
-    const players = getPlayersArray(data).filter(p => p.results);
-    if (players.length < 2) return;
- 
-    const sorted = [...players].sort((a, b) => b.results.total - a.results.total);
-    sorted.forEach((p, i) => { p.rank = i + 1; });
- 
-    try {
-      await addDoc(collection(db, 'history'), {
-        finishedAt: serverTimestamp(),
-        rounds: data.rounds,
-        pseudoList: sorted.map(p => p.pseudo.toLowerCase()),
-        players: sorted.map(p => ({ pseudo: p.pseudo, total: p.results.total, rank: p.rank }))
-      });
-      for (const p of sorted){
-        const statRef = doc(db, 'playerStats', sanitizeId(p.pseudo));
-        await setDoc(statRef, {
-          pseudo: p.pseudo,
-          games: increment(1),
-          wins: increment(p.rank === 1 ? 1 : 0),
-          totalScoreSum: increment(p.results.total)
-        }, { merge: true });
-      }
-      await updateDoc(doc(db, 'sessions', sessionCode), { historyLogged: true });
-    } catch (e) {
-      console.error('Erreur écriture historique', e);
-    }
-  }
- 
-  // ---- Rematch ----
-  async function joinRematch(code){
-    try {
-      results = [];
-      currentRound = 0;
-      stopHeartbeat();
-      await joinSessionByCode(code, pseudo);
-      myRematchJoined = code;
-      deviceSub.textContent = 'Mode — Session : en attente (revanche)';
-      showScreen('waiting');
-    } catch (e) {
-      console.error('Rejoindre la revanche a échoué', e);
-    }
-  }
- 
-  document.getElementById('rematchBtn').addEventListener('click', async () => {
-    const btn = document.getElementById('rematchBtn');
-    btn.disabled = true;
-    const oldText = btn.textContent;
-    btn.textContent = 'Préparation de la revanche…';
-    try {
-      if (lastSessionData && lastSessionData.rematchCode){
-        if (lastSessionData.rematchCode !== myRematchJoined){
-          await joinRematch(lastSessionData.rematchCode);
-        }
-      } else {
-        const oldCode = sessionCode;
-        const mp = (lastSessionData && lastSessionData.maxPlayers) || maxPlayers;
-        const rounds = (lastSessionData && lastSessionData.rounds) || totalRounds;
-        const duration = (lastSessionData && lastSessionData.durationSec) || colorDurationSec;
-        const p = pseudo;
-        totalRounds = rounds;
-        colorDurationSec = duration;
-        results = [];
-        currentRound = 0;
-        stopHeartbeat();
-        await createSession(p, mp);
-        myRematchJoined = sessionCode;
-        await updateDoc(doc(db, 'sessions', oldCode), { rematchCode: sessionCode }).catch(e => console.error(e));
-        deviceSub.textContent = 'Mode — Session : en attente (revanche)';
-        showScreen('waiting');
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      btn.disabled = false;
-      btn.textContent = oldText;
-    }
-  });
- 
-  function resetToSetup(){
-    if (sessionUnsub){ sessionUnsub(); sessionUnsub = null; }
-    stopHeartbeat();
+  document.getElementById('newSessionBtn').addEventListener('click', () => {
+    if (sessionUnsub) { sessionUnsub(); sessionUnsub = null; }
     mode = 'solo';
-    sessionCode = null; isHost = false; sessionColors = []; myPlayerId = null;
-    lastSessionData = null; waitingPhase = null; myRematchJoined = null;
+    sessionCode = null; isHost = false; sessionColors = []; opponentPseudo = null;
+    lastSessionData = null; waitingFor = null;
     pseudoInput.value = ''; joinCodeInput.value = '';
     setMode('solo');
     deviceSub.textContent = 'Mode — Étalonnage';
-    updatePresenceNote();
     showScreen('setup');
-  }
-  document.getElementById('newSessionBtn').addEventListener('click', resetToSetup);
+  });
  
-  // ---- Historique / classement ----
-  async function loadGlobalLeaderboard(){
-    const el = document.getElementById('leaderboardGlobalList');
-    el.innerHTML = '<div class="field-hint">Chargement…</div>';
-    try {
-      const qy = query(collection(db, 'playerStats'), orderBy('wins', 'desc'), limit(15));
-      const snaps = await getDocs(qy);
-      if (snaps.empty){ el.innerHTML = '<div class="field-hint">Aucune partie enregistrée pour le moment.</div>'; return; }
-      el.innerHTML = '';
-      let i = 0;
-      snaps.forEach(s => {
-        i++;
-        const d = s.data();
-        const row = document.createElement('div');
-        row.className = 'round-item';
-        row.innerHTML = `
-          <span class="idx">#${i}</span>
-          <span class="pname" style="flex:1;">${escapeHtml(d.pseudo || s.id)}</span>
-          <span class="sc">${d.wins || 0} 🏆 / ${d.games || 0}</span>
-        `;
-        el.appendChild(row);
-      });
-    } catch (e) {
-      console.error(e);
-      el.innerHTML = '<div class="field-hint">Erreur de chargement (vérifie tes règles Firestore).</div>';
+  // ---- Leaderboard screen ----
+  let leaderboardReturnScreen = 'setup';
+  let lbType = 'parties'; // 'parties' | 'global'
+  const lbPartiesBtn = document.getElementById('lbPartiesBtn');
+  const lbGlobalBtn = document.getElementById('lbGlobalBtn');
+  const lbSearchInput = document.getElementById('lbSearchInput');
+  const lbSearchBtn = document.getElementById('lbSearchBtn');
+  const lbHint = document.getElementById('lbHint');
+  const lbContent = document.getElementById('lbContent');
+ 
+  function openLeaderboard(returnTo){
+    leaderboardReturnScreen = returnTo;
+    showScreen('leaderboard');
+    lbSearchInput.value = '';
+    loadLeaderboard();
+  }
+  document.getElementById('openLeaderboardBtn').addEventListener('click', () => openLeaderboard('setup'));
+  document.getElementById('closeLeaderboardBtn').addEventListener('click', () => {
+    showScreen(leaderboardReturnScreen);
+  });
+ 
+  lbPartiesBtn.addEventListener('click', () => {
+    lbType = 'parties';
+    lbPartiesBtn.classList.add('active');
+    lbGlobalBtn.classList.remove('active');
+    loadLeaderboard();
+  });
+  lbGlobalBtn.addEventListener('click', () => {
+    lbType = 'global';
+    lbGlobalBtn.classList.add('active');
+    lbPartiesBtn.classList.remove('active');
+    loadLeaderboard();
+  });
+  lbSearchBtn.addEventListener('click', () => loadLeaderboard());
+  lbSearchInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') loadLeaderboard(); });
+ 
+  function parseSearchTerms(raw){
+    return raw.split(/[,;]/).map(s => s.trim().toLowerCase()).filter(Boolean).slice(0, 2);
+  }
+ 
+  async function loadLeaderboard(){
+    if (!firebaseReady){
+      lbContent.innerHTML = `<div class="lb-empty">Firebase non configuré — vérifie firebase-config.js et tes règles Firestore (voir FIRESTORE_RULES.txt).</div>`;
+      return;
     }
-  }
+    lbContent.innerHTML = `<div class="lb-loading">Chargement…</div>`;
+    const terms = parseSearchTerms(lbSearchInput.value);
+    const colName = lbType === 'parties' ? 'soloResults' : 'players';
+    const scoreField = lbType === 'parties' ? 'score' : 'bestScore';
  
-  async function searchHeadToHead(){
-    const p1 = document.getElementById('h2hInput1').value.trim();
-    const p2 = document.getElementById('h2hInput2').value.trim();
-    const out = document.getElementById('h2hResult');
-    if (!p1){ out.innerHTML = '<div class="field-hint">Entre au moins un pseudo.</div>'; return; }
-    out.innerHTML = '<div class="field-hint">Recherche…</div>';
     try {
-      const qy = query(collection(db, 'history'), where('pseudoList', 'array-contains', p1.toLowerCase()), limit(200));
-      const snaps = await getDocs(qy);
- 
-      if (p2){
-        // Comparaison ciblée entre p1 et p2
-        let p1wins = 0, p2wins = 0, games = 0;
-        snaps.forEach(s => {
-          const d = s.data();
-          if (!d.pseudoList.includes(p2.toLowerCase())) return;
-          const e1 = d.players.find(pp => pp.pseudo.toLowerCase() === p1.toLowerCase());
-          const e2 = d.players.find(pp => pp.pseudo.toLowerCase() === p2.toLowerCase());
-          if (e1 && e2){
-            games++;
-            if (e1.total > e2.total) p1wins++;
-            else if (e2.total > e1.total) p2wins++;
-          }
-        });
-        if (games === 0){ out.innerHTML = '<div class="field-hint">Aucune partie trouvée entre ces deux pseudos.</div>'; return; }
-        out.innerHTML = `
-          <div class="totals-compare">
-            <div class="side ${p1wins > p2wins ? 'winner' : ''}"><div class="name">${escapeHtml(p1)}</div><div class="num">${p1wins}</div></div>
-            <div class="side ${p2wins > p1wins ? 'winner' : ''}"><div class="name">${escapeHtml(p2)}</div><div class="num">${p2wins}</div></div>
-          </div>
-          <div class="field-hint" style="margin-top:10px;">${games} partie(s) jouée(s) ensemble.</div>
-        `;
-        return;
+      let rows = [];
+      if (terms.length === 0){
+        lbHint.textContent = 'Top 50 — tape un pseudo (ou deux, séparés par une virgule) puis Rechercher.';
+        const snap = await getDocs(query(collection(db, colName), orderBy(scoreField, 'desc'), limit(50)));
+        snap.forEach(d => rows.push({ id: d.id, ...d.data() }));
+      } else {
+        lbHint.textContent = `Résultats pour : ${terms.join(', ')}`;
+        const seen = new Map();
+        for (const term of terms){
+          const snap = await getDocs(query(
+            collection(db, colName),
+            orderBy('pseudoLower'),
+            where('pseudoLower', '>=', term),
+            where('pseudoLower', '<=', term + '\uf8ff'),
+            limit(25)
+          ));
+          snap.forEach(d => seen.set(d.id, { id: d.id, ...d.data() }));
+        }
+        rows = Array.from(seen.values()).sort((a, b) => (b[scoreField] || 0) - (a[scoreField] || 0));
       }
- 
-      // Un seul pseudo : agrégation contre tous les adversaires rencontrés
-      if (snaps.empty){ out.innerHTML = '<div class="field-hint">Aucune partie trouvée pour ce pseudo.</div>'; return; }
-      const oppStats = {}; // key: pseudo affiché en minuscule -> {display, games, wins, losses}
-      let totalGames = 0, totalWins = 0;
-      snaps.forEach(s => {
-        const d = s.data();
-        const me = d.players.find(pp => pp.pseudo.toLowerCase() === p1.toLowerCase());
-        if (!me) return;
-        const opponents = d.players.filter(pp => pp.pseudo.toLowerCase() !== p1.toLowerCase());
-        if (opponents.length === 0) return;
-        totalGames++;
-        const iWon = me.rank === 1;
-        if (iWon) totalWins++;
-        opponents.forEach(opp => {
-          const key = opp.pseudo.toLowerCase();
-          if (!oppStats[key]) oppStats[key] = { display: opp.pseudo, games: 0, wins: 0, losses: 0 };
-          oppStats[key].games++;
-          if (me.total > opp.total) oppStats[key].wins++;
-          else if (opp.total > me.total) oppStats[key].losses++;
-        });
-      });
-      if (totalGames === 0){ out.innerHTML = '<div class="field-hint">Aucune partie trouvée pour ce pseudo.</div>'; return; }
- 
-      const rows = Object.values(oppStats).sort((a, b) => b.games - a.games);
-      let html = `
-        <div class="field-hint" style="margin-top:0;">${escapeHtml(p1)} — ${totalWins} victoire(s) sur ${totalGames} partie(s)</div>
-        <div class="round-list" style="margin-top:10px;">
-      `;
-      rows.forEach(r => {
-        html += `
-          <div class="round-item">
-            <span class="pname" style="flex:1;">${escapeHtml(r.display)}</span>
-            <span class="sc">${r.wins}V — ${r.losses}D (${r.games})</span>
-          </div>
-        `;
-      });
-      html += '</div>';
-      out.innerHTML = html;
+      renderLeaderboard(rows, colName === 'soloResults');
     } catch (e) {
-      console.error(e);
-      out.innerHTML = '<div class="field-hint">Erreur pendant la recherche (vérifie tes règles Firestore).</div>';
+      console.error('loadLeaderboard error', e);
+      lbContent.innerHTML = `<div class="lb-empty">Impossible de charger le classement — vérifie tes règles Firestore (voir FIRESTORE_RULES.txt).<br><span style="opacity:.6">${escapeHtml(e.message || '')}</span></div>`;
     }
   }
  
-  document.getElementById('viewHistoryBtn').addEventListener('click', () => {
-    deviceSub.textContent = 'Mode — Historique';
-    showScreen('history');
-    loadGlobalLeaderboard();
-  });
-  document.getElementById('historyBackBtn').addEventListener('click', () => {
-    deviceSub.textContent = 'Mode — Étalonnage';
-    showScreen('setup');
-  });
-  document.getElementById('h2hSearchBtn').addEventListener('click', searchHeadToHead);
- 
-  // ---- Lien de partage direct (?code=XXXXX) ----
-  (function initFromUrl(){
-    const params = new URLSearchParams(location.search);
-    const code = params.get('code');
-    if (code){
-      setMode('session');
-      joinCodeInput.value = code.toUpperCase();
-      pseudoInput.focus();
+  function renderLeaderboard(rows, isParties){
+    if (rows.length === 0){
+      lbContent.innerHTML = `<div class="lb-empty">Aucun résultat.</div>`;
+      return;
     }
-  })();
+    const list = document.createElement('div');
+    list.className = 'lb-list';
+    rows.forEach((r, i) => {
+      const row = document.createElement('div');
+      row.className = 'lb-row';
+      const score = (isParties ? r.score : r.bestScore) || 0;
+      const meta = isParties
+        ? `${r.totalRounds || '?'} manches${r.colorsPerRound === 2 ? ' · 2 couleurs' : ''}`
+        : `${r.gamesPlayed || 0} partie(s)`;
+      row.innerHTML = `
+        <span class="rank">#${i + 1}</span>
+        <span class="pseudo">${escapeHtml(r.pseudo || '—')}</span>
+        <span class="meta">${meta}</span>
+        <span class="score">${score.toFixed(2)}</span>
+      `;
+      list.appendChild(row);
+    });
+    lbContent.innerHTML = '';
+    lbContent.appendChild(list);
+  }
  
   // init preview
   updateGuessPreview();
 </script>
 </body>
 </html>
- 

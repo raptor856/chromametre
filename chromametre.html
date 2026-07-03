@@ -663,6 +663,7 @@
         <label for="pseudoInput">Ton pseudo</label>
         <input type="text" id="pseudoInput" class="text-input" maxlength="16" placeholder="ex. Raptor">
         <div class="field-note">Utilisé pour les classements (solo) et pour la session à deux.</div>
+        <div class="field-note" id="pseudoTagNote"></div>
       </div>
  
       <div class="field hide" id="sessionActionsField">
@@ -889,6 +890,37 @@
  
   let mode = 'solo';
   let pseudo = '';
+ 
+  // ---- Identifiant persistant (anti-collision de pseudo) ----
+  // Deux joueurs peuvent choisir le même pseudo : on rattache donc chaque
+  // joueur à un identifiant aléatoire stocké dans son navigateur, affiché
+  // sous forme d'un petit tag "#XXXX" à côté du pseudo. Ça évite qu'un
+  // pseudo courant (ex. "Nova") mélange les scores de plusieurs personnes
+  // dans le classement Global, et qu'on puisse "usurper" un score en
+  // reprenant juste le même pseudo sur un autre appareil.
+  function getPlayerId(){
+    try {
+      let id = localStorage.getItem('chromametre_player_id');
+      if (!id){
+        id = (window.crypto && crypto.randomUUID) ? crypto.randomUUID()
+          : (Date.now().toString(16) + Math.random().toString(16).slice(2));
+        localStorage.setItem('chromametre_player_id', id);
+      }
+      return id;
+    } catch (e){
+      // Stockage indisponible (navigation privée, etc.) -> id valable pour cette session seulement
+      if (!window.__cmVolatileId){
+        window.__cmVolatileId = (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : String(Math.random());
+      }
+      return window.__cmVolatileId;
+    }
+  }
+  function tagFromId(id){
+    return '#' + id.replace(/-/g, '').slice(0, 4).toUpperCase();
+  }
+  const playerId = getPlayerId();
+  const playerTag = tagFromId(playerId);
+ 
   let sessionCode = null;
   let isHost = false;
   let sessionColors = [];
@@ -922,19 +954,14 @@
   }
  
   // ---- Leaderboards (solo) helpers ----
-  function sanitizePseudoId(p){
-    return (p || '').trim().toLowerCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-      .replace(/[^a-z0-9_-]+/g, '_')
-      .slice(0, 40) || 'joueur';
-  }
- 
   async function saveSoloResult(pseudoName, total, rounds, cpr){
     if (!firebaseReady) return { ok:false, reason:'no-firebase' };
     try {
       await addDoc(collection(db, 'soloResults'), {
         pseudo: pseudoName,
         pseudoLower: pseudoName.trim().toLowerCase(),
+        playerId,
+        tag: playerTag,
         score: total,
         totalRounds: rounds,
         colorsPerRound: cpr,
@@ -950,14 +977,14 @@
   }
  
   async function updatePlayerGlobal(pseudoName, score, rounds){
-    const id = sanitizePseudoId(pseudoName);
-    const ref = doc(db, 'players', id);
+    const ref = doc(db, 'players', playerId);
     await runTransaction(db, async (tx) => {
       const snap = await tx.get(ref);
       if (!snap.exists()){
         tx.set(ref, {
           pseudo: pseudoName,
           pseudoLower: pseudoName.trim().toLowerCase(),
+          tag: playerTag,
           bestScore: score,
           bestScoreRounds: rounds,
           gamesPlayed: 1,
@@ -970,6 +997,7 @@
         tx.update(ref, {
           pseudo: pseudoName,
           pseudoLower: pseudoName.trim().toLowerCase(),
+          tag: playerTag,
           bestScore: newBest,
           bestScoreRounds: newBest === score ? rounds : (d.bestScoreRounds || rounds),
           gamesPlayed: (d.gamesPlayed || 0) + 1,
@@ -1016,6 +1044,8 @@
   const pseudoField = document.getElementById('pseudoField');
   const sessionActionsField = document.getElementById('sessionActionsField');
   const pseudoInput = document.getElementById('pseudoInput');
+  document.getElementById('pseudoTagNote').textContent =
+    `Ton identifiant : ${playerTag} — fixe pour toi sur ce navigateur (il ne change pas si tu rejoues plus tard). Il sert juste à te distinguer d'un autre joueur qui aurait choisi le même pseudo.`;
   const joinCodeInput = document.getElementById('joinCodeInput');
   const setupErrorMsg = document.getElementById('setupErrorMsg');
   const startBtn = document.getElementById('startBtn');
@@ -1591,6 +1621,15 @@
     }
   }
  
+  function formatWhen(ts){
+    try {
+      const d = ts && ts.toDate ? ts.toDate() : null;
+      if (!d) return '';
+      return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'2-digit' }) + ' ' +
+             d.toLocaleTimeString('fr-FR', { hour:'2-digit', minute:'2-digit' });
+    } catch(e){ return ''; }
+  }
+ 
   function renderLeaderboard(rows, isParties){
     if (rows.length === 0){
       lbContent.innerHTML = `<div class="lb-empty">Aucun résultat.</div>`;
@@ -1601,13 +1640,15 @@
     rows.forEach((r, i) => {
       const row = document.createElement('div');
       row.className = 'lb-row';
+      if (r.playerId === playerId) row.classList.add('highlight');
       const score = (isParties ? r.score : r.bestScore) || 0;
+      const when = isParties ? formatWhen(r.createdAt) : '';
       const meta = isParties
-        ? `${r.totalRounds || '?'} manches${r.colorsPerRound === 2 ? ' · 2 couleurs' : ''}`
+        ? `${when ? when + ' · ' : ''}${r.totalRounds || '?'} manches${r.colorsPerRound === 2 ? ' · 2 couleurs' : ''}`
         : `${r.gamesPlayed || 0} partie(s)`;
       row.innerHTML = `
         <span class="rank">#${i + 1}</span>
-        <span class="pseudo">${escapeHtml(r.pseudo || '—')}</span>
+        <span class="pseudo">${escapeHtml(r.pseudo || '—')} <span style="opacity:.5">${escapeHtml(r.tag || '')}</span></span>
         <span class="meta">${meta}</span>
         <span class="score">${score.toFixed(2)}</span>
       `;
@@ -1622,3 +1663,4 @@
 </script>
 </body>
 </html>
+ 
